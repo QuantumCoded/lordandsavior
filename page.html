@@ -4,15 +4,85 @@
   </head>
   <body>
     <style>
+      body {
+        overflow: hidden;
+      }
+
       img {
         position: absolute;
         top: 0px;
         left: 0px;
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
+        height: 100%;
+      }
+
+      .ree {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+      }
+
+      #obj1 {
+        top: 0;
+        left: 0;
+      }
+
+      #obj2 {
+        top: 0;
       }
     </style>
-
     <img src="/img.jpg">
+    <div class="ree" id="obj1">
+      <img src="/reee.png">
+      <script>
+          obj = document.getElementById('obj1');
+  
+          _x = 1;
+          _y = 1;
+          _r = 0;
+  
+          setInterval(function() {
+            if (obj.offsetTop == 20) _y = 1;
+            if (obj.offsetTop + obj.offsetHeight == document.body.offsetHeight) _y = -1;
+            if (obj.offsetLeft == 20) _x = 1;
+            if (obj.offsetLeft + obj.offsetWidth == document.body.offsetWidth) _x = -1;
+  
+            obj.style.top = obj.offsetTop += _y;
+            obj.style.left = obj.offsetLeft += _x;
+  
+            obj.style.transform = "rotate(" + _r + "deg)";
+            _r += 1;
+  
+            console.log(obj.style.transform)
+          }, 10);
+        </script>
+    </div>
+    <div class="ree" id="obj2">
+        <img src="/reee.png">
+        <script>
+          let obj2 = document.getElementById('obj2');
+
+          obj2.style.left = (document.body.offsetWidth - obj2.offsetWidth) + 'px';
+
+          __x = -1;
+          __y = 1;
+          __r = 0;
+  
+          setInterval(function() {
+            if (obj2.offsetTop == 20) __y = 1;
+            if (obj2.offsetTop + obj2.offsetHeight == document.body.offsetHeight) __y = -1;
+            if (obj2.offsetLeft == 20) __x = 1;
+            if (obj2.offsetLeft + obj2.offsetWidth == document.body.offsetWidth) __x = -1;
+  
+            obj2.style.top = obj2.offsetTop += __y;
+            obj2.style.left = obj2.offsetLeft += __x;
+  
+            obj2.style.transform = "rotate(" + __r + "deg)";
+            __r -= 1;
+  
+            console.log(obj2.style.transform)
+          }, 10);
+        </script>
+      </div>
   </body>
 </html>
