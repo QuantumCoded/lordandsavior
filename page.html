@@ -35,11 +35,11 @@
     <div class="ree" id="obj1">
       <img src="/reee.png">
       <script>
-          obj = document.getElementById('obj1');
-  
-          _x = 1;
-          _y = 1;
-          _r = 0;
+          let obj = document.getElementById('obj1');
+        
+          let _x = 1;
+          let _y = 1;
+          let _r = 0;
   
           setInterval(function() {
             if (obj.offsetTop == 20) _y = 1;
@@ -54,19 +54,19 @@
             _r += 1;
   
             console.log(obj.style.transform)
-          }, 5);
+          }, 3);
         </script>
     </div>
     <div class="ree" id="obj2">
         <img src="/reee.png">
         <script>
-          let obj2 = document.getElementById('obj2');
-
+          let obj2 = document.getElementById('obj');
+          
+          let __x = -1;
+          let __y = 1;
+          let __r = 0;
+          
           obj2.style.left = (document.body.offsetWidth - obj2.offsetWidth) + 'px';
-
-          __x = -1;
-          __y = 1;
-          __r = 0;
   
           setInterval(function() {
             if (obj2.offsetTop == 20) __y = 1;
@@ -81,7 +81,7 @@
             __r -= 1;
   
             console.log(obj2.style.transform)
-          }, 5);
+          }, 2);
         </script>
       </div>
   </body>
