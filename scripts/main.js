@@ -1,3 +1,4 @@
+//Setting up timer and interval for notification text
 let blink_interval;
 let notif = document.getElementById('notif');
 let notif_timeout = setTimeout(function() {
@@ -10,6 +11,7 @@ let notif_timeout = setTimeout(function() {
 }, 3000);
 
 document.onmousedown = function(event) {
+  //Clearing timer and interval for notification text on first click
   if (notif_timeout)  clearTimeout(notif_timeout);
   if (blink_interval) clearInterval(blink_interval);
   
@@ -17,6 +19,7 @@ document.onmousedown = function(event) {
     document.body.removeChild(notif);
   }
 
+  //Generating a tomeo
   let obj = document.body.appendChild(document.createElement('div'));
   let _skew = 1;
   let _x = 1;
@@ -34,6 +37,7 @@ document.onmousedown = function(event) {
 
   img.src = "images/tomeo.png";
 
+  //Setting up bumpy physics
   obj.onmouseleave = function() {
     obj.onmousemove = function() {};
   };
@@ -46,10 +50,12 @@ document.onmousedown = function(event) {
     };
   };
 
+  //Forwarding the onmousedown event to document
   obj.onmousedown = function(event) {
     document.onmousedown(event);
   };
 
+  //Setting up movement/collision detection loop
   setInterval(function() {
     if (obj.offsetTop <= 0) _y = 1;
     if (obj.offsetTop + obj.offsetHeight >= window.innerHeight) _y = -1;
