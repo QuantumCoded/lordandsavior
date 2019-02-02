@@ -1,19 +1,20 @@
-let blink;
-let message = setTimeout(function() {
-  blink = setInterval(function() {
-    click.style.opacity = "1";
+let blink_interval;
+let notif = document.getElementById('notif');
+let notif_timeout = setTimeout(function() {
+  blink_interval = setInterval(function() {
+    notif.style.opacity = "1";
     setTimeout(function() {
-      click.style.opacity = "0";
+      notif.style.opacity = "0";
     }, 500)
   }, 1000);
 }, 3000);
 
 document.onmousedown = function(event) {
-  if (message) clearTimeout(message);
-  if (blink)   clearInterval(blink);
+  if (notif_timeout)  clearTimeout(notif_timeout);
+  if (blink_interval) clearInterval(blink_interval);
   
-  if (document.getElementById('click')) {
-    document.body.removeChild(document.getElementById('click'));
+  if (document.getElementById('notif')) {
+    document.body.removeChild(notif);
   }
 
   let obj = document.body.appendChild(document.createElement('div'));
