@@ -1,4 +1,3 @@
-click = document.getElementById('click');
 let blink;
 let message = setTimeout(function() {
   blink = setInterval(function() {
@@ -12,13 +11,10 @@ let message = setTimeout(function() {
 document.onmousedown = function(event) {
   if (message) clearTimeout(message);
   if (blink)   clearInterval(blink);
-  if (click)
-  try {
-    document.body.removeChild(click);
-    click = undefined;
-  } catch(e) {
-    console.warn("Click after object was removed!");
-  };
+  
+  if (document.getElementById('click')) {
+    document.body.removeChild(document.getElementById('click'));
+  }
 
   let obj = document.body.appendChild(document.createElement('div'));
   let _skew = 1;
