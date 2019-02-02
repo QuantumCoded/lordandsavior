@@ -14,8 +14,8 @@ new http.Server(function(req, res) {
       fs.createReadStream('./reee.png').pipe(res);
       break;
 
-    case '/cancer.mp3':
-      fs.createReadStream('./cancer.mp3').pipe(res);
+    case '/modem.mp3':
+      fs.createReadStream('./modem.mp3').pipe(res);
       break;
 
     default:
