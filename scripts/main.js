@@ -26,12 +26,9 @@ document.onmousedown = function(event) {
   let _y = 1;
   let _r = 0;
 
-  obj.class = "ree";
-  obj.style.position = "absolute";
+  obj.classList.add('spinner');
   obj.style.top  = `${event.clientY - 100}px`;
   obj.style.left = `${event.clientX - 100}px`;
-  obj.style.width = "200px";
-  obj.style.height = "200px";
 
   let img = obj.appendChild(document.createElement('img'));
 
