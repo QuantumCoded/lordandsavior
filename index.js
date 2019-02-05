@@ -19,10 +19,7 @@ const routes = {
   '/sounds/background.mp3': './sounds/background.mp3',
 
   // ./styles/
-  '/styles/default.css'   : './styles/default.css',
-
-  // ./sample.txt
-  '/text'                 : './sample.txt'
+  '/styles/default.css'   : './styles/default.css'
 };
 
 new http.Server(function(req, res) {
