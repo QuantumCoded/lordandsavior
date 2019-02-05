@@ -3,9 +3,9 @@ let blink_interval;
 let notif = document.getElementById('notif');
 let notif_timeout = setTimeout(function() {
   blink_interval = setInterval(function() {
-    notif.style.opacity = "1";
+    notif.style.opacity = '1';
     setTimeout(function() {
-      notif.style.opacity = "0";
+      notif.style.opacity = '0';
     }, 500)
   }, 1000);
 }, 3000);
@@ -21,9 +21,9 @@ document.onmousedown = function(event) {
 
   //Generating a tomeo
   let obj = document.body.appendChild(document.createElement('div'));
-  let _skew = 1;
-  let _x = 1;
-  let _y = 1;
+  let _skew = .2 + Math.random() * 2;
+  let _x = 1 - 2(Math.random() > .5);
+  let _y = 1 - 2(Math.random() > .5);
   let _r = 0;
 
   obj.classList.add('spinner');
@@ -32,7 +32,7 @@ document.onmousedown = function(event) {
 
   let img = obj.appendChild(document.createElement('img'));
 
-  img.src = "images/tomeo.png";
+  img.src = 'images/tomeo.png';
 
   //Setting up bumpy physics
   obj.onmouseleave = function() {
