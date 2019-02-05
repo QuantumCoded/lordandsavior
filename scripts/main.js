@@ -27,12 +27,13 @@ document.onmousedown = function(event) {
   let _r = 0;
 
   obj.classList.add('spinner');
-  obj.style.top  = `${event.clientY - 100}px`;
-  obj.style.left = `${event.clientX - 100}px`;
+  obj.style.top  = `${event.clientY - 70}px`;
+  obj.style.left = `${event.clientX - 70}px`;
 
   let img = obj.appendChild(document.createElement('img'));
+  let images = ['tomeo.png', 'multimeter.jpg'];
 
-  img.src = 'images/tomeo.png';
+  img.src = 'images/' + images[Math.floor(Math.random() * images.length)];
 
   //Setting up bumpy physics
   obj.onmouseleave = function() {
