@@ -21,7 +21,7 @@ document.onmousedown = function(event) {
 
   //Generating a tomeo
   let obj = document.body.appendChild(document.createElement('div'));
-  let _skew = .2 + Math.random() * 2;
+  let _skew = .5 + Math.random() * 1.5;
   let _x = 1 - 2 * Number(Math.random() > .5);
   let _y = 1 - 2 * Number(Math.random() > .5);
   let _r = 0;
