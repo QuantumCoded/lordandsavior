@@ -11,6 +11,7 @@ const routes = {
   // ./images/
   '/images/background.jpg': './images/background.jpg',
   '/images/tomeo.png'     : './images/tomeo.png',
+  '/images/multimeter.jpg': './images/multimeter.jpg',
 
   // ./scripts/
   '/scripts/main.js'      : './scripts/main.js',
