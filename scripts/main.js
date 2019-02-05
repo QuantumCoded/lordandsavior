@@ -22,8 +22,8 @@ document.onmousedown = function(event) {
   //Generating a tomeo
   let obj = document.body.appendChild(document.createElement('div'));
   let _skew = .2 + Math.random() * 2;
-  let _x = 1 - 2(Math.random() > .5);
-  let _y = 1 - 2(Math.random() > .5);
+  let _x = 1 - 2 * Number(Math.random() > .5);
+  let _y = 1 - 2 * Number(Math.random() > .5);
   let _r = 0;
 
   obj.classList.add('spinner');
