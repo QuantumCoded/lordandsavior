@@ -6,7 +6,7 @@ const port = process.env.PORT || 80;
 
 const routes = {
   // ./html/
-  '/'                     : './html/index.html'
+  '/': './html/index.html'
 };
 
 new http.Server(function(req, res) {
