@@ -6,7 +6,11 @@ const port = process.env.PORT || 80;
 
 const routes = {
   // ./html/
-  '/': './html/index.html'
+  '/':           './html/index.html',
+
+  // ./images/
+  '/img-tomeo':  './images/tomeo.jpg',
+  '/img-tomeo2': './images/tomeo2.png'
 };
 
 new http.Server(function(req, res) {
