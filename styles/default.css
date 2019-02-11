@@ -9,8 +9,9 @@ body {
   width: 40vh;
   height: 40vh;
 
-  border: 5px solid grey;
+  user-select: none;
 
+  border: 5px solid grey;
   border-radius: 50%;
 
   background-color: dimgrey;
