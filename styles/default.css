@@ -6,8 +6,8 @@ body {
   position: absolute;
   top: 50vh;
   left: 50vw;
-  width: 20vw;
-  height: 20vw;
+  width: 40vh;
+  height: 40vh;
 
   border: 5px solid grey;
 
@@ -35,4 +35,16 @@ body {
   border-radius: inherit;
 
   transform: translate(-50%, -50%);
+}
+
+.main-counter {
+  position: absolute;
+  top: 15vh;
+  left: 50vw;
+
+  margin: 0;
+
+  font-family: "Comic Sans MS";
+
+  transform: translate(-50%);
 }
