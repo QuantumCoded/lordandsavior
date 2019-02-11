@@ -9,6 +9,8 @@ body {
   width: 20vw;
   height: 20vw;
 
+  border: 5px solid grey;
+
   border-radius: 50%;
 
   background-color: dimgrey;
