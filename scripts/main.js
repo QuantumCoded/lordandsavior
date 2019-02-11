@@ -1,17 +1,40 @@
-var clicks = 0;
+const tps = 50;
+
+var cash = 0;
+var clickValue = 1;
+
+var data = {
+  updates: []
+};
+
+const update = function(event) {
+  data.updates.push(event);
+};
+
+const cashSource = function(cps) {
+  new update(function() {
+    cash += cps / tps;
+  });
+};
 
 window.onload = function() {
   let counter = document.getElementById('counter');
   let button = document.getElementById('button');
 
-  var updateCounter = function(clicks) {
-    counter.innerHTML = `Clicks: ${clicks}`;
+  var updateCash = function() {
+    counter.innerHTML = `Cash: ${Math.floor(cash)}`;
   };  
 
   button.onclick = function() {
-    updateCounter(++clicks);
+    updateCash(cash += clickValue);
   };
 
-  updateCounter(0);
+  setInterval(function() {
+    data.updates.forEach(function(update) {
+      update();
+    });
+
+    updateCash(cash);
+  }, 1000 / tps);
 };
 
