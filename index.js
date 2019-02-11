@@ -12,6 +12,9 @@ const routes = {
   '/img-tomeo':  './images/tomeo.jpg',
   '/img-tomeo2': './images/tomeo2.png',
 
+  // ./scripts
+  '/js-main': './scripts/main.js',
+
   // ./styles/
   '/css-default': './styles/default.css'
 };
