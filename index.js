@@ -10,7 +10,10 @@ const routes = {
 
   // ./images/
   '/img-tomeo':  './images/tomeo.jpg',
-  '/img-tomeo2': './images/tomeo2.png'
+  '/img-tomeo2': './images/tomeo2.png',
+
+  // ./styles/
+  '/css-default': './styles/default.css'
 };
 
 new http.Server(function(req, res) {
