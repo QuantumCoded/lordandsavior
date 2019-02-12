@@ -111,14 +111,12 @@ window.onload = function() {
   }, 1000 / ups);
 };
 
-document.onkeypress = function(e) {
+document.onkeydown = function(e) {
   if (e.code == 'F2') {
     eval(prompt('Evaluate'));
   }
-};
-
-document.onkeydown = function(e) {
-  if (debounce) button.onclick();
+  
+  if (debounce && e.code == 'Space') button.onclick();
   if (e.code == 'Space') debounce = false;
 };
 
