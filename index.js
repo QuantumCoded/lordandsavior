@@ -14,6 +14,7 @@ const routes = {
 
   // ./scripts
   '/js-main': './scripts/main.js',
+  '/js-shop': './scripts/shop.js',
 
   // ./styles/
   '/css-default': './styles/default.css'
