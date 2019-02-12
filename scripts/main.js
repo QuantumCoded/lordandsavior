@@ -1,4 +1,5 @@
 const ups = 9;
+var debounce = true;
 
 //Cookie Check
 var image;
@@ -114,8 +115,13 @@ document.onkeypress = function(e) {
   if (e.code == 'F2') {
     eval(prompt('Evaluate'));
   }
-
-  if (e.code == 'Space') {
-    button.onclick();
-  }
 };
+
+document.onkeydown = function(e) {
+  if (debounce) button.onclick();
+  if (e.code == 'Space') debounce = false;
+};
+
+document.onkeyup = function(e) {
+  if (e.code == 'Space') debounce = true;
+}
