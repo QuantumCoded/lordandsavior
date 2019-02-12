@@ -25,7 +25,8 @@ var data = image ||
 };
 
 //Clear the testing influences on startup
-data.influences.testing.forEach(function(i) {i.destroy()});
+data.influences.testing = [];
+data.cashPerSecond = 0;
 
 //Influence the cashPerSecond value
 const influence = function(value) {
@@ -73,7 +74,7 @@ window.onload = function() {
   };
 
 
-  new cashInfluence('testing', 5, 0);
+  //new cashInfluence('testing', 5);
 
 
   //Main loop
@@ -89,6 +90,6 @@ window.onload = function() {
 
 document.onkeydown = function(e) {
   if (e.code == 'F2') {
-    eval(prompt('Terminal','>'));
+    eval(prompt('Evaluate'));
   }
 };
