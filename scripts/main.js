@@ -1,3 +1,4 @@
+//Predefined variables
 const ups = 9;
 var debounce = true;
 
@@ -26,7 +27,7 @@ var data = image ||
 //Write data to cookie
 const writeCookie = function() {
   document.cookie = JSON.stringify(data);
-}
+};
 
 //Flatten all the influences into storable data and save it in cookies
 const stashInfluences = function() {
@@ -37,7 +38,6 @@ const stashInfluences = function() {
 
   writeCookie();
 };
-
 
 //Influence the cashPerSecond value
 const influence = function(value) {
@@ -51,6 +51,7 @@ const modifyCash = function(value) {
   return true;
 };
 
+//Class for affecting cash over a period of time
 class cashInfluence {
   constructor(type, cps, cost, sell) {
     this.type = type || 'testing';
@@ -70,14 +71,12 @@ class cashInfluence {
   }
 }
 
-
 //Unflatten influences before page finishes loading
 temp = Object.assign({}, data.influences);                     //Clone flattened data
 data.influences = {};                                          //Clear flattened data
 for (let i in temp) {
   temp[i].map(p => new cashInfluence(p[0], p[1], p[2], p[3])); //Repopulate by unflattening clone data 
 }
-
 
 window.onbeforeunload = function() {
   stashInfluences();
@@ -95,10 +94,6 @@ window.onload = function() {
   button.onclick = function() {
     updateCash(data.cash += data.clickValue);
   };
-
-
-  //new cashInfluence('testing', 5);
-
 
   //Main loop
   setInterval(function() {
@@ -122,4 +117,4 @@ document.onkeydown = function(e) {
 
 document.onkeyup = function(e) {
   if (e.code == 'Space') debounce = true;
-}
+};
