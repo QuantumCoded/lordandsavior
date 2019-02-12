@@ -81,7 +81,8 @@ for (let i in temp) {
 window.onbeforeunload = function() {
   stashInfluences();
 };
-window.onload = function() {
+
+window.addEventListener('load', function() {
   let counter = document.getElementById('counter'); //The counter above the button
   let button = document.getElementById('button');   //The button
 
@@ -104,7 +105,7 @@ window.onload = function() {
     updateCash(data.cash);
     writeCookie();
   }, 1000 / ups);
-};
+});
 
 document.onkeydown = function(e) {
   if (e.code == 'F2') {
