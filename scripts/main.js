@@ -10,6 +10,7 @@ let notif_timeout = setTimeout(function() {
   }, 1000);
 }, 3000);
 
+//Generate tomeo on click
 document.onmousedown = function(event) {
   //Clearing timer and interval for notification text on first click
   if (notif_timeout)  clearTimeout(notif_timeout);
