@@ -19,12 +19,41 @@ var data = image ||
   clickValue: 1
 };
 
+//Influence the cashPerSecond value
+const influence = function(value) {
+  data.cashPerSecond += value;
+};
+
+//Safely modify the ammount of cash the player has
+const modifyCash = function(value) {
+  if (data.cash += value < 0) return false;
+  data.cash += value;
+  return true;
+};
+
+class cashInfluence {
+  constructor(cps, cost, sell) {
+    this.cps  = cps  || 0;
+    this.cost = cost || 0;
+    this.sell = sell || 0;
+
+    if (modifyCash(-this.cost)) {
+      influence(this.cps);
+    }
+  }
+  
+  destroy() {
+    modifyCash(sell);
+    influence(-cps);
+  }
+}
+
 window.onload = function() {
   let counter = document.getElementById('counter'); //The counter above the button
   let button = document.getElementById('button');   //The button
 
   //Refresh the number displayed on the counter
-  var updateCash = function() {
+  const updateCash = function() {
     counter.innerHTML = `Cash: ${Math.floor(data.cash)}`;
   };  
 
