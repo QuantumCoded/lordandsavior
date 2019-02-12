@@ -110,7 +110,7 @@ window.onload = function() {
   }, 1000 / ups);
 };
 
-document.onkeydown = function(e) {
+document.onkeypress = function(e) {
   if (e.code == 'F2') {
     eval(prompt('Evaluate'));
   }
