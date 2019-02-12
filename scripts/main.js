@@ -87,7 +87,7 @@ window.onload = function() {
 
   //Refresh the number displayed on the counter
   const updateCash = function() {
-    counter.innerHTML = `Cash: ${Math.floor(data.cash)}`;
+    counter.innerHTML = `Cache: ${Math.floor(data.cash)}`;
   };  
 
   //When the button is clicked
