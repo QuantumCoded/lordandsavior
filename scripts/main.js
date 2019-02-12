@@ -1,4 +1,4 @@
-const ups = 10;
+const ups = 9;
 
 //Cookie Check
 var image;
@@ -7,7 +7,7 @@ try {
   image = JSON.parse(document.cookie);
 } catch(error) {
   //The client is not using cookies, prompt them
-  console.warn('Possible parsing failure, reseting cookies');
+  console.warn('Possible parsing failure, resetting cookies');
   if (!confirm('This site uses cookies to save your progress, is this okay?'))
     location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
     //Rick Roll all the scrubs that don't agree
@@ -74,13 +74,12 @@ class cashInfluence {
 temp = Object.assign({}, data.influences);                     //Clone flattened data
 data.influences = {};                                          //Clear flattened data
 for (let i in temp) {
-  temp[i].map(p => new cashInfluence(p[0], p[1], p[2], p[3])); //Repopulate by unflattening clone data
+  temp[i].map(p => new cashInfluence(p[0], p[1], p[2], p[3])); //Repopulate by unflattening clone data 
 }
 
 
 window.onbeforeunload = function() {
   stashInfluences();
-  document.cookie='bacon';
 };
 window.onload = function() {
   let counter = document.getElementById('counter'); //The counter above the button
