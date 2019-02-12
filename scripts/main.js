@@ -114,4 +114,8 @@ document.onkeydown = function(e) {
   if (e.code == 'F2') {
     eval(prompt('Evaluate'));
   }
+
+  if (e.code == 'Space') {
+    button.onclick();
+  }
 };
