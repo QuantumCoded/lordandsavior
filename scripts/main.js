@@ -19,14 +19,24 @@ var data = image ||
   cash: 0,
   cashPerSecond: 0,
   clickValue: 1,
-  influences: {
-    testing: []
-  }
+  influences: {}
 };
 
-//Clear the testing influences on startup
-data.influences.testing = [];
-data.cashPerSecond = 0;
+//Write data to cookie
+const writeCookie = function() {
+  document.cookie = JSON.stringify(data);
+}
+
+//Flatten all the influences into storable data and save it in cookies
+const stashInfluences = function() {
+  for (let i in data.influences) {
+    data.influences[i].forEach(i => i.destroy());
+    data.influences[i] = data.influences[i].map(i => [i.type, i.cps, 0, i.sell]);
+  }
+
+  writeCookie();
+};
+
 
 //Influence the cashPerSecond value
 const influence = function(value) {
@@ -54,11 +64,24 @@ class cashInfluence {
 
     if (modifyCash(-this.cost)) {
       influence(this.cps);
-      (data.influences[this.type] || data.influences.testing).push(this);
+      (data.influences[this.type] || (data.influences[this.type] = [])).push(this);
     }
   }
 }
 
+
+//Unflatten influences before page finishes loading
+temp = Object.assign({}, data.influences);                     //Clone flattened data
+data.influences = {};                                          //Clear flattened data
+for (let i in temp) {
+  temp[i].map(p => new cashInfluence(p[0], p[1], p[2], p[3])); //Repopulate by unflattening clone data
+}
+
+
+window.onbeforeunload = function() {
+  stashInfluences();
+  document.cookie='bacon';
+};
 window.onload = function() {
   let counter = document.getElementById('counter'); //The counter above the button
   let button = document.getElementById('button');   //The button
@@ -84,7 +107,7 @@ window.onload = function() {
 
     modifyCash(data.cashPerSecond / ups);
     updateCash(data.cash);
-    document.cookie = JSON.stringify(data);
+    writeCookie();
   }, 1000 / ups);
 };
 
