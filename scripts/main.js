@@ -72,3 +72,8 @@ window.onload = function() {
   }, 100);
 };
 
+document.onkeydown = function(e) {
+  if (e.code == 'F2') {
+    eval(prompt('Terminal','>'));
+  }
+}
