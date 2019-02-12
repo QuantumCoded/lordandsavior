@@ -1,3 +1,5 @@
+const ups = 10;
+
 //Cookie Check
 var image;
 
@@ -16,8 +18,14 @@ var data = image ||
 {
   cash: 0,
   cashPerSecond: 0,
-  clickValue: 1
+  clickValue: 1,
+  influences: {
+    testing: []
+  }
 };
+
+//Clear the testing influences on startup
+data.influences.testing.forEach(function(i) {i.destroy()});
 
 //Influence the cashPerSecond value
 const influence = function(value) {
@@ -26,25 +34,27 @@ const influence = function(value) {
 
 //Safely modify the ammount of cash the player has
 const modifyCash = function(value) {
-  if (data.cash += value < 0) return false;
+  if (data.cash + value < 0) return false;
   data.cash += value;
   return true;
 };
 
 class cashInfluence {
-  constructor(cps, cost, sell) {
+  constructor(type, cps, cost, sell) {
+    this.type = type || 'testing';
     this.cps  = cps  || 0;
     this.cost = cost || 0;
     this.sell = sell || 0;
 
+    this.destroy = function() {
+      modifyCash(sell);
+      influence(-cps);
+    };
+
     if (modifyCash(-this.cost)) {
       influence(this.cps);
+      (data.influences[this.type] || data.influences.testing).push(this);
     }
-  }
-  
-  destroy() {
-    modifyCash(sell);
-    influence(-cps);
   }
 }
 
@@ -62,18 +72,23 @@ window.onload = function() {
     updateCash(data.cash += data.clickValue);
   };
 
+
+  new cashInfluence('testing', 5, 0);
+
+
   //Main loop
   setInterval(function() {
     //Wait for the user to accept cookies before saving any
     if (!typeof data) return;
 
+    modifyCash(data.cashPerSecond / ups);
     updateCash(data.cash);
     document.cookie = JSON.stringify(data);
-  }, 100);
+  }, 1000 / ups);
 };
 
 document.onkeydown = function(e) {
   if (e.code == 'F2') {
     eval(prompt('Terminal','>'));
   }
-}
+};
