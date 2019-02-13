@@ -84,3 +84,14 @@ body {
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 }
+
+.main-shop-item {
+  position: relative;
+  left: 5%;
+  width: 90%;
+  height: 100px;
+
+  margin-top: 20px;
+
+  background-color: blue;
+}
