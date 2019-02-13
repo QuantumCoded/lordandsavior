@@ -2,6 +2,15 @@
 const ups = 9;
 var debounce = true;
 
+
+//Templates support check
+if (!document.createElement('template').content) {
+  alert('Your browser doesn\'t support my trash, sorry');
+  location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+  //Rick Roll all the scrubs that use propritary browsers
+}
+
+
 //Cookie Check
 var image;
 
