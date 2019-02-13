@@ -88,7 +88,7 @@ window.addEventListener('load', function() {
 
   //Refresh the number displayed on the counter
   const updateCash = function() {
-    counter.innerHTML = `Cache: ${Math.floor(data.cash)}`;
+    counter.innerHTML = `Robux: ${Math.floor(data.cash)}`;
   };  
 
   //When the button is clicked
