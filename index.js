@@ -11,6 +11,7 @@ const routes = {
   // ./images/
   '/img-tomeo':  './images/tomeo.jpg',
   '/img-tomeo2': './images/tomeo2.png',
+  '/img-placeholder': './images/placeholder.png',
 
   // ./scripts
   '/js-main': './scripts/main.js',
