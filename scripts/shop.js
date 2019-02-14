@@ -7,10 +7,12 @@ window.addEventListener('load', function() {
     shop.appendChild(template.content);
   };
 
+  //Handle the shop expanding when the user hovers over it
   shop.onmouseenter = function() {
     shop.style.transform = 'translateX(-12px)';
   };
 
+  //Hanles the shop retracting when the user leaves it
   shop.onmouseleave = function() {
     console.log('left');
     shop.style.transform = 'translateX(-99.5%)';

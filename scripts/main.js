@@ -101,13 +101,9 @@ window.addEventListener('load', function() {
   };  
 
   //When the button is clicked
-  button.onmousedown = function() {
-    updateCash(data.cash += data.clickValue);
-    button.firstElementChild.src = '/img-tomeo2';
-  };
-
-  button.onmouseup = function() {
-    button.firstElementChild.src = '/img-tomeo';
+  button.onclick = function() {
+    data.cash += data.clickValue
+    updateCash();
   };
 
   //Main loop
@@ -116,7 +112,7 @@ window.addEventListener('load', function() {
     if (!typeof data) return;
 
     modifyCash(data.cashPerSecond / ups);
-    updateCash(data.cash);
+    updateCash();
     writeCookie();
   }, 1000 / ups);
 });
@@ -126,13 +122,12 @@ document.onkeydown = function(e) {
     eval(prompt('Evaluate'));
   }
   
-  if (debounce && e.code == 'Space') button.onmousedown();
+  if (debounce && e.code == 'Space') button.onclick();
   if (e.code == 'Space') debounce = false;
 };
 
 document.onkeyup = function(e) {
   if (e.code == 'Space') {
     debounce = true;
-    button.onmouseup();
   }
 };
