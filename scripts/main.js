@@ -102,7 +102,7 @@ window.addEventListener('load', function() {
 
   //When the button is clicked
   button.onclick = function() {
-    data.cash += data.clickValue
+    data.cash += data.clickValue;
     updateCash();
   };
 
