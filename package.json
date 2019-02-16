@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Tarquin21/lordandsavior/issues"
   },
-  "homepage": "https://github.com/Tarquin21/lordandsavior#readme"
+  "homepage": "https://github.com/Tarquin21/lordandsavior#readme",
+  "dependencies": {
+    "redis": "^2.8.0"
+  }
 }
