@@ -1,14 +1,14 @@
-const crypto = require('crypto');
-const redis  = require('redis');
-const http   = require('http');
-const url    = require('url');
-const fs     = require('fs');
-const qs     = require('querystring');
+const crypto = require('crypto');      //Encryption/Hashing/Encoding API
+const redis  = require('redis');       //Redis database API
+const http   = require('http');        //Handles traffic using the HTTP protocol
+const url    = require('url');         //Parses a url into JSON
+const fs     = require('fs');          //Accesses the filesystem
+const qs     = require('querystring'); //Parses the queries in the url into JSON
 
-const port   = process.env.PORT || 80;
-const client = redis.createClient(process.env.REDIS_URL);
+const port   = process.env.PORT || 80;                    //The port the HTTP server should listen on
+const client = redis.createClient(process.env.REDIS_URL); //The redis API client
 
-//Shutdown if the redis server is unresponsive (heroku should auto-restart and re-attempt connection)
+//Shutdown if the redis client can't connect (should automatically resolve)
 client.on('error', function() {
   process.exit();
 });
@@ -48,6 +48,7 @@ const validateQuery = function(query) {
   return true;
 };
 
+//Start the HTTP server
 new http.Server(function(req, res) {
   let req_url = url.parse(req.url);    //The request URL
   let query = qs.parse(req_url.query); //The query the request made
@@ -85,4 +86,4 @@ new http.Server(function(req, res) {
   } else {                                               //If the route has not been mapped
     fs.createReadStream('./html/404.html').pipe(res);    //Steam the 404 page back to the client
   }
-}).listen(port);
+}).listen(port); //Tell the server to start listening on the HTTP port

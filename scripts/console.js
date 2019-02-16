@@ -7,32 +7,34 @@ const AJAXReq = function(method, query, encoding, callback) {
   }
 
   //Initiate the request
-  let request = new XMLHttpRequest();
-  request.responseType = encoding || 'text';
-  request.open(method, `/?${query}`);
-  request.send();
+  let request = new XMLHttpRequest();        //Create the request
+  request.responseType = encoding || 'text'; //Set the expected respons type
+  request.open(method, `/?${query}`);        //Open the request using the provided method and query
+  request.send();                            //Send the request
 
-  //Call the callback with the data recieved
+  //Run the callback with the data recieved
   request.onloadend = function() {
     callback(request.response);
   };
 };
 
+//Wait for the window to load
 window.onload = function() {
-  const auth = prompt('Redis DB Auth Key');
+  const auth = prompt('Auth Key:'); //Prompt the user for an authentication key
 
+  //When the user presses a key
   document.onkeydown = function(e) {
-    if (e.code == 'Enter') {
-      let data = String(prompt('Command:'));
+    if (e.code == 'Enter') {                 //If the key was Enter
+      let data = String(prompt('Command:')); //Prompt the user for a command
 
-      //Escape reserved characters
+      //Replace any reserved characters with their escape codes
       data = data.split('').map(c => {
         return c
           .replace('+', '%2B');
 
       }).join('');
 
-      //Send the AJAX request
+      //Make an AJAX request to issue the command
       new AJAXReq('POST', `auth=${auth}&type=COMMAND&data=${data}`, function(data) {
         alert(data);
       });

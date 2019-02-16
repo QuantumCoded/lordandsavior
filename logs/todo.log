@@ -1,0 +1,11 @@
+Create a sign up and log in page
+Create protocol for setting up an account on the database
+Create protocol for getting a user's data off the database
+Create protocol for checking for entries in the database
+Implement account creation into the sign up page
+Create method to initiate a user's state from the database
+Implement error checking for the sign up and log in system
+Fix the item templates in the shop gui
+Create method for purchasing items as well as selling them
+Create items to populate the shop
+Await user feedback on what to do next

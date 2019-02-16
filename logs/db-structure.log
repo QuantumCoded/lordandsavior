@@ -1,0 +1,23 @@
+This log is for the development of a structure to store data in on the database.
+
+
+
+HASH passwords
+  username: password hash
+
+HASH cash
+  username: ammount
+
+
+
+
+HASH item type
+  username: ammount
+
+KEY item type
+  [item influence parameters]
+
+
+
+Notes:
+There is no need to store CPS, because it will just get overwritten with zero before initalizing the influences.
