@@ -6,8 +6,13 @@ const fs     = require('fs');
 const qs     = require('querystring');
 
 const port   = process.env.PORT || 80;
-const auth   = process.env.AUTH_KEY || 'fdUlNSLPCqmjw3evPwAhkFVS+KGKgL9HSdoSAPP8Crw=';
+const auth   = process.env.AUTH_KEY;
 const client = redis.createClient(process.env.REDIS_URL);
+
+//Shutdown if the redis server is unresponsive (heroku should auto-restart and re-attempt connection)
+client.on('error', function() {
+  process.exit();
+});
 
 const routes = {
   // ./html/
