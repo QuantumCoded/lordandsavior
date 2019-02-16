@@ -59,6 +59,10 @@ new http.Server(function(req, res) {
           }
 
           return;
+        } else {
+          //The the client they are unautorized if the key is wrong
+          res.writeHead(401);
+          res.end('401 Unauthorized');
         }
       }
     }
