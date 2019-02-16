@@ -44,6 +44,7 @@ const hash = function(data) {
 const validateQuery = function(query) {
   if (!typeof query.auth) return false;                       //Invalid if no auth key is provided
   if (!typeof query.type) return false;                       //Invalid if no request type is provided
+  if (auth.length > 100) return false;                        //Invalid if the key is too large
   if (hash(query.auth) != process.env.AUTH_KEY) return false; //Invalid the auth key is invalid
   return true;
 };
