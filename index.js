@@ -4,9 +4,10 @@ const http   = require('http');
 const url    = require('url');
 const fs     = require('fs');
 const qs     = require('querystring');
-const port   = process.env.PORT || 80;
 
+const port   = process.env.PORT || 80;
 const auth   = process.env.AUTH_KEY || 'fdUlNSLPCqmjw3evPwAhkFVS+KGKgL9HSdoSAPP8Crw=';
+const client = redis.createClient(process.env.REDIS_URL);
 
 const routes = {
   // ./html/
