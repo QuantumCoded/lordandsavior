@@ -68,6 +68,12 @@ new http.Server(function(req, res) {
           }
         break;
 
+        //Handle the creation of a new user in the database
+        case 'INIT_USER':
+          if (!client.ping()) {
+            //
+          }
+
         //If the type is not supported, respond with not implemented
         default:
           res.writeHead(501, 'Query type not supported');
@@ -79,6 +85,8 @@ new http.Server(function(req, res) {
       res.writeHead(401, 'Invalid authentication token');
       res.end('401 Unauthorized');
     }
+
+    return;
   }
 
   //Handle all defined routes
