@@ -51,16 +51,20 @@ const validateQuery = function(query) {
 
 //Start the HTTP server
 new http.Server(function(req, res) {
+  console.log('recieving req')
   let req_url = url.parse(req.url);    //The request URL
   let query = qs.parse(req_url.query); //The query the request made
 
   //Handle post requests
   if (req.method == 'POST') {
+    console.log('post request');
     if (validateQuery(query)) { //Ensure the query is valid
+      console.log('request valid')
       switch(query.type) {      //Decide how to hande the query
 
         //Handle console issued commands
         case 'COMMAND':
+          console.log('command request');
           try {
             res.end(String(eval(query.data)));  //Run the command and respond with the result
           } catch(error) {
@@ -70,17 +74,20 @@ new http.Server(function(req, res) {
 
         //Handle the creation of a new user in the database
         case 'INIT_USER':
+          console.log('init user request');
           if (!client.ping()) {
             //
           }
 
         //If the type is not supported, respond with not implemented
         default:
+          console.log('unknown request type')
           res.writeHead(501, 'Query type not supported');
           res.end('501 Not Implemented');
         break;
       }
     } else {
+      console.log('request invalid')
       //Tell the client they are unauthorized if the key is wrong
       res.writeHead(401, 'Invalid authentication token');
       res.end('401 Unauthorized');
@@ -91,6 +98,7 @@ new http.Server(function(req, res) {
 
   //Handle all defined routes
   if (routes[req_url.path]) {                            //If the route has been mapped to a file
+    console.log('handling request as a route');
     fs.createReadStream(routes[req_url.path]).pipe(res); //Stream that file back to the client
   } else {                                               //If the route has not been mapped
     fs.createReadStream('./html/404.html').pipe(res);    //Steam the 404 page back to the client
