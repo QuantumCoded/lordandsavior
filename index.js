@@ -70,9 +70,14 @@ new http.Server(function(req, res) {
 
         //Handle the creation of a new user in the database
         case 'INIT_USER':
+          //Validating database integrity
           if (!client.ping()) {
-            //
+            res.writeHead(503, 'Redis database is offline');
+            res.end('503 Service Unavailable');
           }
+
+          
+        break;
 
         //If the type is not supported, respond with not implemented
         default:
