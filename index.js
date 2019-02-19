@@ -40,64 +40,239 @@ const hash = function(data) {
   return hash.digest('base64');
 };
 
-//Validates a query to ensure propper authorization
-const validateQuery = function(query) {
-  if (!typeof query.auth) return false;                       //Invalid if no auth key is provided
-  if (!typeof query.type) return false;                       //Invalid if no request type is provided
-  if (query.auth.length > 100) return false;                  //Invalid if the key is too large
-  if (hash(query.auth) != process.env.AUTH_KEY) return false; //Invalid the auth key is invalid
-  return true;
-};
+//Check if the redis database is online
+const redisUnvailable = function(res) {
+  //Validating database integrity
+  client.ping(function(error, rep) {
+    //If the server has an error respond with internal server error
+    if (error) {
+      res.writeHead(500, error);
+      res.end('500 Internal Server Error');
+      return true;
+    }
+
+    //If the database doesn't reply respon with service unavailable
+    if (!rep) {
+      res.writeHead(503, 'Redis server not available');
+      res.end('503 Service Unavailable');
+      return true;
+    }
+  });
+}
 
 //Start the HTTP server
 new http.Server(function(req, res) {
   let req_url = url.parse(req.url);    //The request URL
   let query = qs.parse(req_url.query); //The query the request made
 
-  //Handle post requests
+  //Handle POST queries
   if (req.method == 'POST') {
-    if (validateQuery(query)) { //Ensure the query is valid
-      switch(query.type) {      //Decide how to hande the query
+    if (typeof query.type) { //Ensure the query can be switched
+      switch(query.type) {   //Decide how to hande the query
 
         //Handle console issued commands
         case 'COMMAND':
+          //If query parameters are missing respond with bad request
+          if (!typeof query.auth || !typeof query.data) {
+            res.writeHead(400, 'Invalid query parameters');
+            res.end('400 Bad Request');
+
+            return;
+          }
+
+          if (hash(query.auth) != process.env.AUTH_KEY) {
+            res.writeHead(401, 'The auth key is invalid');
+            res.end('401 Unauthorized');
+
+            return;
+          }
+
+          //Try to run the command
           try {
-            res.end(String(eval(query.data)));  //Run the command and respond with the result
+            res.end(eval(query.data));  //Run the command and respond with the result
+            return;
           } catch(error) {
-            res.end(`ERROR: ${String(error)}`); //If there was an error, respond with the error
+            res.end(`ERROR: ${String(error)}`); //If there was an error respond with the error
+            return;
           }
         break;
 
         //Handle the creation of a new user in the database
         case 'INIT_USER':
-          //Validating database integrity
-          if (!client.ping()) {
-            res.writeHead(503, 'Redis database is offline');
-            res.end('503 Service Unavailable');
-          }
+          //Convert both the username and password to lowercase (prevent duplicate account names)
+          let user = query.username.toLowerCase();
+          let pass = query.password.toLowerCase();
 
-          
+          //Respond with and error if there is a problem with the redis database
+          if (redisUnvailable(res)) return;
+
+          //Check to see if the user already exists
+          client.sismember('users', user, function(error, rep) {
+            if (error) {
+              res.writeHead(500, error);
+              res.end('500 Internal Server Error');
+              
+              return;
+            }
+
+            if (rep) {
+              res.writeHead(400, 'The user already exists');
+              res.end('400 Bad Request');
+
+              return;
+            }
+          });
+
+          //Add the user to the list of created users
+          client.sadd('users', user, function(error) {
+            if (error) {
+              res.writeHead(500, error);
+              res.end('500 Internal Server Error');
+
+              return;
+            }
+          });
+
+          //Store the hashed password into the passwords hash
+          client.hset('passwords', user, hash(pass), function(error) {
+            if (error) {
+              res.writeHead(500, error);
+              res.end('500 Internal Server Error');
+
+              return;
+            }
+          });
+
+          //Set the user's cash to 0
+          client.hset('cash', user, 0, function(error) {
+            if (error) {
+              res.writeHead(500, error);
+              res.end('500 Internal Server Error');
+
+              return;
+            }
+          });
+
+          //Set the user's influences to an empty object
+          client.hset('influences', user, '{}', function(error) {
+            if (error) {
+              res.writeHead(500, error);
+              res.end('500 Internal Server Error');
+
+              return;
+            }
+          });
+
+          res.writeHead(201, 'User created successfully');
+          res.end('201 Created');
+
+          return;
         break;
 
-        //If the type is not supported, respond with not implemented
+        //If the type is not supported respond with not implemented
         default:
           res.writeHead(501, 'Query type not supported');
           res.end('501 Not Implemented');
+
+          return;
         break;
       }
     } else {
-      //Tell the client they are unauthorized if the key is wrong
-      res.writeHead(401, 'Invalid authentication token');
-      res.end('401 Unauthorized');
-    }
+      //If the query type is not included respond with bad request
+      res.writeHead(400, 'No query type provided');
+      res.end('400 Bad Request');
 
-    return;
+      return;
+    }
   }
 
-  //Handle all defined routes
-  if (routes[req_url.path]) {                            //If the route has been mapped to a file
-    fs.createReadStream(routes[req_url.path]).pipe(res); //Stream that file back to the client
-  } else {                                               //If the route has not been mapped
-    fs.createReadStream('./html/404.html').pipe(res);    //Steam the 404 page back to the client
+  //Handle GET requests
+  if (req.method == 'GET') {
+    //If the request is a GET query
+    if (typeof query.type) {
+      switch(query.type) {
+
+        //If the client is trying to request a user's data
+        case 'LOAD_USER':
+          //If query parameters are missing respond with bad request
+          if (!query.username || !query.password) {
+            res.writeHead(400, 'Invalid query parameters');
+            res.end('400 Bad Request');
+
+            return;
+          }
+
+          let user = query.username.toLowerCase();
+          let pass = query.password.toLowerCase();
+
+          //Respond with an error if the redis database is unavailable
+          if(redisUnvailable(res)) return;
+
+          //Check to make sure the user's password matches
+          client.hget('passwords', user, function(error, rep) {
+            if (error) {
+              res.writeHead(500, error);
+              res.end('500 Internal Server Error');
+
+              return;
+            }
+
+            //If the passwords don't match respond with unauthorized
+            if (hash(pass) != rep) {
+              res.writeHead(401, 'The password is incorrect');
+              res.end('401 Unauthorized');
+
+              return;
+            }
+          });
+
+          let cash;
+          let influences;
+
+          //Store the user's cash value to a variable cash
+          client.hget('cash', user, function(error, rep) {
+            if (error) {
+              res.writeHead(500, error);
+              res.end('500 Internal Server Error');
+
+              return;
+            }
+
+            cash = rep;
+          });
+
+          //Store the user's influences value to a variable influences
+          client.hget('influences', user, function(error, rep) {
+            if (error) {
+              res.writeHead(500, error);
+              res.end('500 Internal Server Error');
+
+              return;
+            }
+
+            influences = rep;
+          });
+
+          //Respond with an object containing the user's data
+          res.end(JSON.stringify({cash: cash, influences: influences}));
+          return;
+        break;
+
+        //If the query type is not supported respond with not implemented
+        default:
+          res.writeHead(501, 'Query type not supported');
+          res.end('501 Not Implemented');
+
+          return;
+        break;
+      }
+    } else {                                                 //If the request is a GET request
+      if (routes[req_url.path]) {                            //If the route has been mapped to a file
+        fs.createReadStream(routes[req_url.path]).pipe(res); //Stream that file back to the client
+      } else {                                               //Otherwise return a 404 error back to the client
+        res.writeHead(404, 'The route is not defined', {'content-type': 'text/html'});
+        fs.createReadStream('./html/404.html').pipe(res);
+      }
+    }
   }
 }).listen(port); //Tell the server to start listening on the HTTP port
