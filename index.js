@@ -89,8 +89,18 @@ new http.Server(function(req, res) {
 
           //Try to run the command
           try {
-            res.end(String(eval(query.data)));  //Run the command and respond with the result
-            return;
+            if (query.data.startsWith('~')) { //If the command starts with "~" it is going to respond to the request
+              eval(query.data.substring(1)); //Run everything past the "~" and let it respond
+              setTimeout(function() { //Wait 3 seconds before timing out (if the code hasn't responded yet)
+                if (!res.headersSent) {
+                  res.writeHead(408, 'Code did not respond to request');
+                  res.end('408 Request timed out');
+                }
+              }, 3000);
+            } else {
+              res.end(String(eval(query.data)));  //Run the command and respond with the result
+              return;
+            }  
           } catch(error) {
             res.end(`ERROR: ${String(error)}`); //If there was an error respond with the error
             return;
