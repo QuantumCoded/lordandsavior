@@ -89,7 +89,7 @@ new http.Server(function(req, res) {
 
           //Try to run the command
           try {
-            res.end(eval(query.data));  //Run the command and respond with the result
+            res.end(String(eval(query.data)));  //Run the command and respond with the result
             return;
           } catch(error) {
             res.end(`ERROR: ${String(error)}`); //If there was an error respond with the error
