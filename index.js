@@ -73,7 +73,7 @@ new http.Server(function(req, res) {
         //Handle console issued commands
         case 'COMMAND':
           //If query parameters are missing respond with bad request
-          if (!typeof query.auth || !typeof query.data) {
+          if (!query.auth || !query.data) {
             res.writeHead(400, 'Invalid query parameters');
             res.end('400 Bad Request');
 
