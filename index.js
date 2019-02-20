@@ -101,7 +101,7 @@ new http.Server(function(req, res) {
         case 'INIT_USER':
           //If query parameters are missing respond with bad request
           if (!query.username || !query.password) {
-            res.writeHead(400, 'Invalid query headers');
+            res.writeHead(400, 'Invalid query parameters');
             res.end('400 Bad Request');
 
             return;
