@@ -285,6 +285,7 @@ new http.Server(function(req, res) {
         break;
       }
     } else {                                                 //If the request is a GET request
+      if (Object.entries(query).length != 0) return;         //Ensure that there are no queries
       if (routes[req_url.path]) {                            //If the route has been mapped to a file
         fs.createReadStream(routes[req_url.path]).pipe(res); //Stream that file back to the client
       } else {                                               //Otherwise return a 404 error back to the client
