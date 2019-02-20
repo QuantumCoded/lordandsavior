@@ -217,16 +217,18 @@ new http.Server(function(req, res) {
 
         //If the client is trying to request a user's data
         case 'LOAD_USER':
+
+          //Storing the username and password to variables for convenience
+          let user = query.username && query.username.toLowerCase();
+          let pass = query.password && query.password.toLowerCase();
+
           //If query parameters are missing respond with bad request
-          if (!query.username || !query.password) {
+          if (!user || !pass || user == '' || pass == '') {
             res.writeHead(400, 'Invalid query parameters');
             res.end('400 Bad Request');
 
             return;
           }
-
-          let user = query.username.toLowerCase();
-          let pass = query.password.toLowerCase();
 
           //Respond with an error if the redis database is unavailable
           if(redisUnvailable(res)) return;
