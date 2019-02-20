@@ -67,7 +67,7 @@ new http.Server(function(req, res) {
 
   //Handle POST queries
   if (req.method == 'POST') {
-    if (typeof query.type) { //Ensure the query can be switched
+    if (query.type) { //Ensure the query can be switched
       switch(query.type) {   //Decide how to hande the query
 
         //Handle console issued commands
@@ -114,17 +114,17 @@ new http.Server(function(req, res) {
 
         //Handle the creation of a new user in the database
         case 'INIT_USER':
+          //Convert both the username and password to lowercase (prevent duplicate account names)
+          let user = query.username && query.username.toLowerCase();
+          let pass = query.password && query.password.toLowerCase();
+
           //If query parameters are missing respond with bad request
-          if (!query.username || !query.password) {
+          if (!user || !pass) {
             res.writeHead(400, 'Invalid query parameters');
             res.end('400 Bad Request');
 
             return;
           }
-
-          //Convert both the username and password to lowercase (prevent duplicate account names)
-          let user = query.username.toLowerCase();
-          let pass = query.password.toLowerCase();
 
           //Respond with and error if there is a problem with the redis database
           if (redisUnvailable(res)) return;
@@ -292,7 +292,6 @@ new http.Server(function(req, res) {
         break;
       }
     } else {                                                 //If the request is a GET request
-      if (Object.entries(query).length != 0) return;         //Ensure that there are no queries
       if (routes[req_url.path]) {                            //If the route has been mapped to a file
         fs.createReadStream(routes[req_url.path]).pipe(res); //Stream that file back to the client
       } else {                                               //Otherwise return a 404 error back to the client
