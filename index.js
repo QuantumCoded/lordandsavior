@@ -100,7 +100,7 @@ new http.Server(function(req, res) {
         //Handle the creation of a new user in the database
         case 'INIT_USER':
           //If query parameters are missing respond with bad request
-          if (!typeof query.username || !typeof query.password) {
+          if (!query.username || !query.password) {
             res.writeHead(400, 'Invalid query headers');
             res.end('400 Bad Request');
 
