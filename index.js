@@ -150,62 +150,60 @@ new http.Server(function(req, res) {
               return;
             }
 
-            console.log(`checking if user ${user} exists in database, result is ${rep}`);
-            if (rep == 1) {
-              console.log('It has been established that the user exists, responding with 400');
+            //If the user exists respond with bad request
+            if (rep) {
               res.writeHead(400, 'The user already exists');
               res.end('400 Bad Request');
 
               return;
-            }
-          });
+            } else { //If the user doesn't exist
 
-          console.log('Either the 400 response has failed or was never called, creating user');
+              //Add the user to the list of created users
+              client.sadd('users', user, function(error) {
+                if (error) {
+                  res.writeHead(500, error);
+                  res.end('500 Internal Server Error');
 
-          //Add the user to the list of created users
-          client.sadd('users', user, function(error) {
-            if (error) {
-              res.writeHead(500, error);
-              res.end('500 Internal Server Error');
+                  return;
+                }
+              });
+
+              //Store the hashed password into the passwords hash
+              client.hset('passwords', user, hash(pass), function(error) {
+                if (error) {
+                  res.writeHead(500, error);
+                  res.end('500 Internal Server Error');
+
+                  return;
+                }
+              });
+
+              //Set the user's cash to 0
+              client.hset('cash', user, 0, function(error) {
+                if (error) {
+                  res.writeHead(500, error);
+                  res.end('500 Internal Server Error');
+
+                  return;
+                }
+              });
+
+              //Set the user's influences to an empty object
+              client.hset('influences', user, '{}', function(error) {
+                if (error) {
+                  res.writeHead(500, error);
+                  res.end('500 Internal Server Error');
+
+                  return;
+                }
+              });
+
+              res.writeHead(201, 'User created successfully');
+              res.end('201 Created');
 
               return;
             }
           });
-
-          //Store the hashed password into the passwords hash
-          client.hset('passwords', user, hash(pass), function(error) {
-            if (error) {
-              res.writeHead(500, error);
-              res.end('500 Internal Server Error');
-
-              return;
-            }
-          });
-
-          //Set the user's cash to 0
-          client.hset('cash', user, 0, function(error) {
-            if (error) {
-              res.writeHead(500, error);
-              res.end('500 Internal Server Error');
-
-              return;
-            }
-          });
-
-          //Set the user's influences to an empty object
-          client.hset('influences', user, '{}', function(error) {
-            if (error) {
-              res.writeHead(500, error);
-              res.end('500 Internal Server Error');
-
-              return;
-            }
-          });
-
-          res.writeHead(201, 'User created successfully');
-          res.end('201 Created');
-
-          return;
         break;
 
         //If the type is not supported respond with not implemented
