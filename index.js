@@ -24,7 +24,10 @@ const routes = {
   '/img-tomeo2':      './images/tomeo2.png',
   '/img-placeholder': './images/placeholder.png',
 
-  // ./scripts
+  // ./logs/
+  '/log-changelog':   './logs/changelog.log',
+
+  // ./scripts/
   '/js-main':         './scripts/main.js',
   '/js-shop':         './scripts/shop.js',
   '/js-console':      './scripts/console.js',
@@ -313,7 +316,7 @@ new http.Server(function(req, res) {
         fs.createReadStream('./html/404.html').pipe(res);
       }
     }
-  } else {
+  } else { //If the request method is unknown respond with not implemented
     res.writeHead(501, 'The request method is not valid');
     res.end('501 Not implemented');
   }
