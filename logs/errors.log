@@ -1,0 +1,2 @@
+User could be created without a password - Fixed
+Init user can be used on a username that already exists

@@ -1,0 +1,17 @@
+This log is for the development of a structure to store data in on the database.
+
+
+
+HASH passwords
+  username: password hash
+
+HASH cash
+  username: ammount
+
+HASH influences
+  username: {influence_type: ammount, ...}
+
+Notes:
+There is no need to store CPS, because it will just get overwritten with zero before initalizing the influences.
+Use a hidden value in each item hash to ensure the user is not allowed to access items that are still in development
+(Possibly add an overide for this with a propper dev key, maybe not, who knows. It would just make testing easy)
