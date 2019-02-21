@@ -10,7 +10,7 @@ const client = redis.createClient(process.env.REDIS_URL); //The redis API client
 
 //Shutdown if the redis client can't connect (should automatically resolve)
 client.on('error', function() {
-  process.exit();
+  if (port != 80) process.exit(); //Only shutdown if not running localy
 });
 
 //The routes of http paths to file paths
