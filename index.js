@@ -317,7 +317,7 @@ new http.Server(function(req, res) {
       }
     }
   } else { //If the request method is unknown respond with not implemented
-    res.writeHead(501, 'The request method is not valid');
+    res.writeHead(501, 'The request method is not supported');
     res.end('501 Not implemented');
   }
 }).listen(port); //Tell the server to start listening on the HTTP port
