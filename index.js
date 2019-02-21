@@ -229,7 +229,7 @@ new http.Server(function(req, res) {
   //Handle GET requests
   if (req.method == 'GET') {
     //If the request is a GET query
-    if (Object.entries(query).length > 0 && typeof query.type) {
+    if (query.type) {
       switch(query.type) {
 
         //If the client is trying to request a user's data
