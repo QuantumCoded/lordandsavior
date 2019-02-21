@@ -1,6 +1,7 @@
-Version 1.1.2
+Version 1.1.3
 
 Updates since last stable build
 
 Fixing bug with handling unknown request methods
 Changing cursor to pointer when over the button image
+Fixing bug with not changing the cursor when over the button
