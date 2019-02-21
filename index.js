@@ -152,12 +152,15 @@ new http.Server(function(req, res) {
 
             console.log(`checking if user ${user} exists in database, result is ${rep}`);
             if (rep == 1) {
+              console.log('It has been established that the user exists, responding with 400');
               res.writeHead(400, 'The user already exists');
               res.end('400 Bad Request');
 
               return;
             }
           });
+
+          console.log('Either the 400 response has failed or was never called, creating user');
 
           //Add the user to the list of created users
           client.sadd('users', user, function(error) {

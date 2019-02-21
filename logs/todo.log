@@ -1,6 +1,6 @@
 Create a sign up and log in page - UP NEXT
-Create protocol for setting up an account on the database - IN PROGRESS
-Create protocol for getting a user's data off the database - IN PROGRESS
+Create protocol for setting up an account on the database - DONE
+Create protocol for getting a user's data off the database - DONE
 Create protocol for checking for entries in the database
 Implement account creation into the sign up page
 Create method to write a user's state to the database
