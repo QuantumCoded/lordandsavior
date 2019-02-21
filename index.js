@@ -265,39 +265,39 @@ new http.Server(function(req, res) {
               res.end('401 Unauthorized');
 
               return;
+            } else { //If the passwords do match
+              let cash;
+              let influences;
+
+              //Store the user's cash value to a variable cash
+              client.hget('cash', user, function(error, rep) {
+                if (error) {
+                  res.writeHead(500, error);
+                  res.end('500 Internal Server Error');
+
+                  return;
+                }
+
+                cash = rep;
+
+                //Store the user's influences value to a variable influences
+                client.hget('influences', user, function(error, rep) {
+                  if (error) {
+                    res.writeHead(500, error);
+                    res.end('500 Internal Server Error');
+
+                    return;
+                  }
+
+                  influences = rep;
+
+                  //Respond with an object containing the user's data
+                  res.end(JSON.stringify({cash: cash, influences: influences}));
+                  return;
+                });
+              });
             }
-          });
-
-          let cash;
-          let influences;
-
-          //Store the user's cash value to a variable cash
-          client.hget('cash', user, function(error, rep) {
-            if (error) {
-              res.writeHead(500, error);
-              res.end('500 Internal Server Error');
-
-              return;
-            }
-
-            cash = rep;
-          });
-
-          //Store the user's influences value to a variable influences
-          client.hget('influences', user, function(error, rep) {
-            if (error) {
-              res.writeHead(500, error);
-              res.end('500 Internal Server Error');
-
-              return;
-            }
-
-            influences = rep;
-          });
-
-          //Respond with an object containing the user's data
-          res.end(JSON.stringify({cash: cash, influences: influences}));
-          return;
+          }); 
         break;
 
         //If the query type is not supported respond with not implemented

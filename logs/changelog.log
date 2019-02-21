@@ -6,3 +6,4 @@ Starting version counter because I'm too lazy to go count the commits (version: 
 Adding a changelog file
 Adding comments
 Checking to see if the query is bad on a GET request
+Changed the way LOAD_USER works
