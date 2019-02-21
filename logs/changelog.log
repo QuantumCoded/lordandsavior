@@ -1,5 +1,7 @@
-Version 1.2.1
+Version 1.2.2
 
 Updates since last stable build
 
 Avoid shutting the server down if it's running localy
+Adding signup page requirments
+Removing excess log files
