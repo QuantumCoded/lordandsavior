@@ -150,7 +150,8 @@ new http.Server(function(req, res) {
               return;
             }
 
-            if (rep) {
+            console.log(`checking if user ${user} exists in database, result is ${rep}`);
+            if (rep == 1) {
               res.writeHead(400, 'The user already exists');
               res.end('400 Bad Request');
 
