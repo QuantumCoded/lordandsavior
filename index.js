@@ -311,7 +311,15 @@ new http.Server(function(req, res) {
     } else {                                                 //If the request is a GET request
       if (routes[req_url.path]) {                            //If the route has been mapped to a file
         fs.createReadStream(routes[req_url.path]).pipe(res); //Stream that file back to the client
-      } else {                                               //Otherwise return a 404 error back to the client
+      } else {                                               //Otherwise
+        if (Object.entries(query).length > 0) {              //If the request has queries respon with bad request
+          res.writeHead(400, 'Invalid query parameters');
+          res.end('400 Bad request');
+
+          return;
+        }
+
+        //If the request is not a query respond with the 404 page
         res.writeHead(404, 'The route is not defined', {'content-type': 'text/html'});
         fs.createReadStream('./html/404.html').pipe(res);
       }
