@@ -313,5 +313,8 @@ new http.Server(function(req, res) {
         fs.createReadStream('./html/404.html').pipe(res);
       }
     }
+  } else {
+    res.writeHead(501, 'The request method is not valid');
+    res.end('501 Not implemented');
   }
 }).listen(port); //Tell the server to start listening on the HTTP port
