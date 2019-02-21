@@ -1,9 +1,5 @@
-Version 1.0.5
+Version 1.1.1
 
 Updates since last stable build
 
-Starting version counter because I'm too lazy to go count the commits (version: master . staging . development)
-Adding a changelog file
-Adding comments
-Checking to see if the query is bad on a GET request
-Changed the way LOAD_USER works
+Fixing bug with handling unknown request methods
