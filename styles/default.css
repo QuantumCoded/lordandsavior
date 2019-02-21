@@ -10,6 +10,7 @@ body {
   height: 40vh;
 
   user-select: none;
+  cursor: pointer;
 
   border: 5px solid grey;
   border-radius: 50%;

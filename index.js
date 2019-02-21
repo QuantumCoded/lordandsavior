@@ -324,8 +324,12 @@ new http.Server(function(req, res) {
         fs.createReadStream('./html/404.html').pipe(res);
       }
     }
-  } else { //If the request method is unknown respond with not implemented
-    res.writeHead(501, 'The request method is not supported');
+  }
+
+  if (req.method != 'GET' && req.method != 'POST') {
+    res.writeHead(501, 'Invalid request method');
     res.end('501 Not implemented');
+
+    return;
   }
 }).listen(port); //Tell the server to start listening on the HTTP port
