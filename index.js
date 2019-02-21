@@ -65,6 +65,18 @@ new http.Server(function(req, res) {
   let req_url = url.parse(req.url);    //The request URL
   let query = qs.parse(req_url.query); //The query the request made
 
+  //The handler for redis queries for responding to the request (console use only)
+  const clientRes = function(error, rep) {
+    if (error) {
+      res.writeHead(500, error);
+      res.end('500 Internal server error');
+
+      return;
+    }
+
+    res.end(String(rep));
+  };
+
   //Handle POST queries
   if (req.method == 'POST') {
     if (query.type) { //Ensure the query can be switched
