@@ -1,4 +1,4 @@
-Version 1.2.4
+Version 1.2.5
 
 Updates since last stable build
 
@@ -9,3 +9,4 @@ Setting up the head for the signup page
 Adding resources to routes
 Minimal styling on signup page
 Adding some additional comments to the main server
+Log when the server starts running

@@ -335,5 +335,7 @@ new http.Server(function(req, res) {
     res.end('501 Not implemented');
 
     return;
-  }
-}).listen(port); //Tell the server to start listening on the HTTP port
+  } //Tell the server to start listening on the HTTP port
+}).listen(port, function() {
+  console.log('server is running on port', port);
+});
