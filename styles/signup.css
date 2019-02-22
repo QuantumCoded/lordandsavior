@@ -11,6 +11,8 @@ body {
 
   margin: 0;
 
+  user-select: none;
+
   color: #eaeaea;
   font-family: 'Consolas';
 
@@ -37,6 +39,8 @@ body {
   height: fit-content;
 
   margin: 0 0 0 5px;
+
+  user-select: none;
 
   color: dimgrey;
   font-family: 'Consolas';
@@ -71,6 +75,8 @@ body {
 
   margin: 0 0 0 5px;
 
+  user-select: none;
+
   color: dimgrey;
   font-family: 'Consolas';
 
@@ -95,6 +101,18 @@ body {
   outline: none;
 }
 
+.main-signup-login {
+  position: absolute;
+  top: 84%;
+  left: 10%;
+  width: fit-content;
+  height: fit-content;
+
+  font-family: 'Consolas';
+
+  transform: translateY(-50%);
+}
+
 .main-signup-submit {
   position: absolute;
   top: 80%;
@@ -102,11 +120,30 @@ body {
   width: 30%;
   height: 8%;
 
-  transform: translateY(0px);
-
+  cursor: pointer;
   border-radius: 10px;
 
   background-color: #202020;
+}
+
+.main-signup-submit:hover {
+  background-color: #404040;
+}
+
+.main-signup-sumbit-text {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: fit-content;
+
+  user-select: none;
+
+  color: white;
+  text-align: center;
+  font-family: 'Consolas';
+
+  transform: translateY(-50%);
 }
 
 .main-footer {
@@ -117,6 +154,8 @@ body {
   height: fit-content;
 
   margin: 0;
+
+  user-select: none;
 
   color: #eaeaea;
   font-family: 'Consolas';
