@@ -1,4 +1,4 @@
-Version 1.2.7
+Version 1.2.8
 
 Updates since last stable build
 
@@ -14,3 +14,4 @@ Finished the signup page
 Minor changes to signup page
 Added login page
 Added resources to routes
+Abstracting AJAX class to its own script

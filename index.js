@@ -35,6 +35,7 @@ const routes = {
   '/js-console':      './scripts/console.js',
   '/js-signup':       './scripts/signup.js',
   '/js-login':        './scripts/login.js',
+  '/js-ajax':         './scripts/ajax.js',
 
   // ./styles/
   '/css-default':     './styles/default.css',
