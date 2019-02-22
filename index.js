@@ -64,7 +64,7 @@ const redisUnvailable = function(res) {
       return true;
     }
   });
-}
+};
 
 //Start the HTTP server
 new http.Server(function(req, res) {
@@ -85,8 +85,8 @@ new http.Server(function(req, res) {
 
   //Handle POST queries
   if (req.method == 'POST') {
-    if (query.type) { //Ensure the query can be switched
-      switch(query.type) {   //Decide how to hande the query
+    if (query.type) {      //Ensure the query can be switched
+      switch(query.type) { //Decide how to hande the query
 
         //Handle console issued commands
         case 'COMMAND':
@@ -329,6 +329,7 @@ new http.Server(function(req, res) {
     }
   }
 
+  //If the espond with a not implemented
   if (req.method != 'GET' && req.method != 'POST') {
     res.writeHead(501, 'Invalid request method');
     res.end('501 Not implemented');

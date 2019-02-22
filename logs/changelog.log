@@ -1,4 +1,4 @@
-Version 1.2.3
+Version 1.2.4
 
 Updates since last stable build
 
@@ -8,3 +8,4 @@ Removing excess log files
 Setting up the head for the signup page
 Adding resources to routes
 Minimal styling on signup page
+Adding some additional comments to the main server
