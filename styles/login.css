@@ -1,0 +1,164 @@
+body {
+  background-color: dimgrey;
+}
+
+.main-header {
+  position: absolute;
+  top: 20px;
+  left: 50vw;
+  width: fit-content;
+  height: fit-content;
+
+  margin: 0;
+
+  user-select: none;
+
+  color: #eaeaea;
+  font-family: 'Consolas';
+
+  transform: translateX(-50%);
+}
+
+.main-login {
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  width: 30vw;
+  height: 50vh;
+
+  border-radius: 10px;
+  transform: translate(-50%, -60%);
+  background-color: #d3d3d3;
+}
+
+.main-login-username_head {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  width: fit-content;
+  height: fit-content;
+
+  margin: 0 0 0 5px;
+
+  user-select: none;
+
+  color: dimgrey;
+  font-family: 'Consolas';
+
+  transform: translateY(-100%);
+}
+
+.main-login-username {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  width: 80%;
+  height: 8%;
+  
+  padding-left: 5px;
+  padding-right: 5px;
+  transform: translateX(-5px);
+
+  border-radius: 10px;
+}
+
+.main-login-username:focus {
+  outline: none;
+}
+
+.main-login-password_head {
+  position: absolute;
+  top: 40%;
+  left: 10%;
+  width: fit-content;
+  height: fit-content;
+
+  margin: 0 0 0 5px;
+
+  user-select: none;
+
+  color: dimgrey;
+  font-family: 'Consolas';
+
+  transform: translateY(-100%);
+}
+
+.main-login-password {
+  position: absolute;
+  top: 40%;
+  left: 10%;
+  width: 80%;
+  height: 8%;
+
+  padding-left: 5px;
+  padding-right: 5px;
+  transform: translateX(-5px);
+
+  border-radius: 10px;
+}
+
+.main-login-password:focus {
+  outline: none;
+}
+
+.main-login-login {
+  position: absolute;
+  top: 84%;
+  left: 10%;
+  width: fit-content;
+  height: fit-content;
+
+  font-family: 'Consolas';
+
+  transform: translateY(-50%);
+}
+
+.main-login-submit {
+  position: absolute;
+  top: 80%;
+  left: 60%;
+  width: 30%;
+  height: 8%;
+
+  cursor: pointer;
+  border-radius: 10px;
+
+  background-color: #202020;
+}
+
+.main-login-submit:hover {
+  background-color: #404040;
+}
+
+.main-login-sumbit-text {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: fit-content;
+
+  user-select: none;
+
+  color: white;
+  text-align: center;
+  font-family: 'Consolas';
+
+  transform: translateY(-50%);
+}
+
+.main-footer {
+  position: absolute;
+  top: 90vh;
+  left: 50vw;
+  width: fit-content;
+  height: fit-content;
+
+  margin: 0;
+
+  user-select: none;
+
+  color: #eaeaea;
+  font-family: 'Consolas';
+
+  transform: translateX(-50%);
+}

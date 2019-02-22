@@ -16,8 +16,9 @@ client.on('error', function() {
 //The routes of http paths to file paths
 const routes = {
   // ./html/
-  '/':                './html/signup.html',
-  '/home':            './html/index.html',
+  '/':                './html/login.html',
+  '/signup':          './html/signup.html',
+  '/main':            './html/index.html',
   '/console':         './html/console.html',
 
   // ./images/
@@ -33,10 +34,12 @@ const routes = {
   '/js-shop':         './scripts/shop.js',
   '/js-console':      './scripts/console.js',
   '/js-signup':       './scripts/signup.js',
+  '/js-login':        './scripts/login.js',
 
   // ./styles/
   '/css-default':     './styles/default.css',
-  '/css-signup':      './styles/signup.css'
+  '/css-signup':      './styles/signup.css',
+  '/css-login':       './styles/login.css'
 };
 
 //Preform a sha256 hash on data and return the base64 digest
