@@ -1,0 +1,125 @@
+body {
+  background-color: dimgrey;
+}
+
+.main-header {
+  position: absolute;
+  top: 20px;
+  left: 50vw;
+  width: fit-content;
+  height: fit-content;
+
+  margin: 0;
+
+  color: #eaeaea;
+  font-family: 'Consolas';
+
+  transform: translateX(-50%);
+}
+
+.main-signup {
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  width: 30vw;
+  height: 50vh;
+
+  border-radius: 10px;
+  transform: translate(-50%, -60%);
+  background-color: #d3d3d3;
+}
+
+.main-signup-username_head {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  width: fit-content;
+  height: fit-content;
+
+  margin: 0 0 0 5px;
+
+  color: dimgrey;
+  font-family: 'Consolas';
+
+  transform: translateY(-100%);
+}
+
+.main-signup-username {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  width: 80%;
+  height: 8%;
+  
+  padding-left: 5px;
+  padding-right: 5px;
+  transform: translateX(-5px);
+
+  border-radius: 10px;
+}
+
+.main-signup-username:focus {
+  outline: none;
+}
+
+.main-signup-password_head {
+  position: absolute;
+  top: 40%;
+  left: 10%;
+  width: fit-content;
+  height: fit-content;
+
+  margin: 0 0 0 5px;
+
+  color: dimgrey;
+  font-family: 'Consolas';
+
+  transform: translateY(-100%);
+}
+
+.main-signup-password {
+  position: absolute;
+  top: 40%;
+  left: 10%;
+  width: 80%;
+  height: 8%;
+
+  padding-left: 5px;
+  padding-right: 5px;
+  transform: translateX(-5px);
+
+  border-radius: 10px;
+}
+
+.main-signup-password:focus {
+  outline: none;
+}
+
+.main-signup-submit {
+  position: absolute;
+  top: 80%;
+  left: 60%;
+  width: 30%;
+  height: 8%;
+
+  transform: translateY(0px);
+
+  border-radius: 10px;
+
+  background-color: #202020;
+}
+
+.main-footer {
+  position: absolute;
+  top: 90vh;
+  left: 50vw;
+  width: fit-content;
+  height: fit-content;
+
+  margin: 0;
+
+  color: #eaeaea;
+  font-family: 'Consolas';
+
+  transform: translateX(-50%);
+}

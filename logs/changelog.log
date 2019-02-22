@@ -1,7 +1,10 @@
-Version 1.2.2
+Version 1.2.3
 
 Updates since last stable build
 
 Avoid shutting the server down if it's running localy
 Adding signup page requirments
 Removing excess log files
+Setting up the head for the signup page
+Adding resources to routes
+Minimal styling on signup page
