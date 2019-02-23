@@ -16,7 +16,6 @@ document.cookie = '';
 
 //Cookie Check
 try {
-  image = JSON.parse(document.cookie);
 } catch(error) {
   //The client is not using cookies, prompt them
   console.warn('Possible parsing failure, resetting cookies');
@@ -26,18 +25,7 @@ try {
 }
 
 //The main data object, what's stored in cookies [TO BE REFACTORED]
-var data = image ||
-{
-  cash: 0,
-  cashPerSecond: 0,
-  clickValue: 1,
-  influences: {}
-};
-
-//Write data to cookie [TO BE REFACTORED]
-const writeCookie = function() {
-  document.cookie = JSON.stringify(data);
-};
+var data;
 
 //Flatten all the influences into storable data and save it in cookies [TO BE REFACTORED]
 const stashInfluences = function() {
@@ -46,7 +34,7 @@ const stashInfluences = function() {
     data.influences[i] = data.influences[i].map(i => [i.type, i.cps, 0, i.sell]); //Convert influences into construction params
   }
 
-  writeCookie(); //Save the user's state to their browser cookies
+  //Save the user's state to their browser cookies
 };
 
 //Influence the cashPerSecond value
@@ -92,7 +80,7 @@ for (let i in temp) {
 
 //When the user's leaving the page save the user's data to the browser [TO BE REFACTORED]
 window.onbeforeunload = function() {
-  stashInfluences(); //Save the user's data to the cookies
+  //Save the user's data to the database
 };
 
 //Wait for the window to load before setting up the code behind page operation
@@ -116,7 +104,7 @@ window.addEventListener('load', function() {
 
     modifyCash(data.cashPerSecond / ups); //Add the cashPerSecond to the user's cash value
     updateCash();                         //Update the counter number
-    writeCookie();                        //Save the user's data to the browser [TO BE REFACTORED]
+    //Save the user's data to the browser [TO BE REFACTORED]
   }, 1000 / ups);
 });
 

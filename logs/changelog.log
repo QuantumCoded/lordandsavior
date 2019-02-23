@@ -1,4 +1,4 @@
-Version 1.2.21
+Version 1.2.22
 
 Updates since last stable build
 
@@ -36,3 +36,4 @@ Added session to the headers of the response to the MAKE_SESSION request
 Updating todo list
 Fixing typo in login script
 Adding handling for session created in
+Removing writing to cookies in the main script
