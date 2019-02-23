@@ -429,3 +429,7 @@ new http.Server(function(req, res) {
 }).listen(port, function() {
   console.log('server is running on port', port);
 });
+
+process.on('uncaughtException', function(err) {
+  console.log('Caught exception: ' + err);
+});
