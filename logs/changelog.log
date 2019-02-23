@@ -1,4 +1,4 @@
-Version 1.2.19
+Version 1.2.20
 
 Updates since last stable build
 
@@ -31,3 +31,6 @@ Removing let from temporary variable definitions (it doesn't like me redefining 
 Stopping the login process if the login is invalid instead of saving the error to cookies
 Standardizing response capitalization as it was causing bugs with the client and it's good practice
 Converting error detection on client to use convert string to lowercase before checking errors
+Adding the request object to the callback of AJAX
+Added session to the headers of the response to the MAKE_SESSION request
+Updating todo list

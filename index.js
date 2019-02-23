@@ -299,7 +299,7 @@ new http.Server(function(req, res) {
                     return;
                   }
 
-                  res.writeHead(201, `Session has been started ttl=${ttl}`);
+                  res.writeHead(201, `Session has been started ttl=${ttl}`, {'session': session});
                   res.end('201 Created');
 
                   return;

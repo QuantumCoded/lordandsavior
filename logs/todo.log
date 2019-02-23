@@ -1,10 +1,10 @@
-Create a sign up and log in page - IN PROGRESS
+Create a sign up and log in page - DONE
 Create protocol for setting up an account on the database - DONE
 Create protocol for getting a user's data off the database - DONE
-Create protocol for checking for entries in the database
-Implement account creation into the sign up page
+Create protocol for checking for entries in the database - DONE
+Implement account creation into the sign up page 
 Create method to write a user's state to the database
-Create method to initiate a user's state from the database
+Create method to initiate a user's state from the database - IN PROGRESS
 Implement error checking for the sign up and log in system - DONE
 Fix the item templates in the shop gui
 Create method for purchasing items as well as selling them

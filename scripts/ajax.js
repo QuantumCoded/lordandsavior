@@ -14,6 +14,6 @@ const AJAXReq = function(method, query, encoding, callback) {
 
   //Run the callback with the data recieved
   request.onloadend = function() {
-    callback(request.response);
+    callback(request.response, request);
   };
 };
