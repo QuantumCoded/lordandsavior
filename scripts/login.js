@@ -17,13 +17,18 @@ window.onload = function() {
   //When the submit button is clicked
   submit.onclick = function() {
     //Send an AJAX request for the user's data
-    new AJAXReq('GET', `type=LOAD_USER&username=${user.value}&password=${pass.value}`, 'json', function(data) {
+    new AJAXReq('GET', `type=MAKE_SESSION&username=${user.value}&password=${pass.value}`, function(data) {
       if (!data) {
         invalid();
         return;
       }
 
-      console.log(JSON.stringify(data));
+      console.log(data);
+      document.cookie = `session=${data};path="/"`;
+
+      setTimeout(function() {
+        location.href = '/main';
+      }, 2);
     });
   };
 };

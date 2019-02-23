@@ -11,7 +11,10 @@ if (!document.createElement('template').content) {
   //Rick Roll all the scrubs that use propritary browsers
 }
 
-//Cookie Check [TO BE DEPRICATED]
+console.log('Cookie:', document.cookie);
+document.cookie = '';
+
+//Cookie Check
 try {
   image = JSON.parse(document.cookie);
 } catch(error) {

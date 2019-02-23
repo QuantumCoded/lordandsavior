@@ -18,7 +18,7 @@ const routes = {
   // ./html/
   '/':                './html/login.html',
   '/signup':          './html/signup.html',
-  '/main':            './html/index.html',
+  '/main':            './html/main.html',
   '/console':         './html/console.html',
 
   // ./images/
@@ -166,53 +166,52 @@ new http.Server(function(req, res) {
               res.end('400 Bad Request');
 
               return;
-            } else { //If the user doesn't exist
-
-              //Add the user to the list of created users
-              client.sadd('users', user, function(error) {
-                if (error) {
-                  res.writeHead(500, error);
-                  res.end('500 Internal Server Error');
-
-                  return;
-                }
-              });
-
-              //Store the hashed password into the passwords hash
-              client.hset('passwords', user, hash(pass), function(error) {
-                if (error) {
-                  res.writeHead(500, error);
-                  res.end('500 Internal Server Error');
-
-                  return;
-                }
-              });
-
-              //Set the user's cash to 0
-              client.hset('cash', user, 0, function(error) {
-                if (error) {
-                  res.writeHead(500, error);
-                  res.end('500 Internal Server Error');
-
-                  return;
-                }
-              });
-
-              //Set the user's influences to an empty object
-              client.hset('influences', user, '{}', function(error) {
-                if (error) {
-                  res.writeHead(500, error);
-                  res.end('500 Internal Server Error');
-
-                  return;
-                }
-              });
-
-              res.writeHead(201, 'User created successfully');
-              res.end('201 Created');
-
-              return;
             }
+
+            //Add the user to the list of created users
+            client.sadd('users', user, function(error) {
+              if (error) {
+                res.writeHead(500, error);
+                res.end('500 Internal Server Error');
+
+                return;
+              }
+            });
+
+            //Store the hashed password into the passwords hash
+            client.hset('passwords', user, hash(pass), function(error) {
+              if (error) {
+                res.writeHead(500, error);
+                res.end('500 Internal Server Error');
+
+                return;
+              }
+            });
+
+            //Set the user's cash to 0
+            client.hset('cash', user, 0, function(error) {
+              if (error) {
+                res.writeHead(500, error);
+                res.end('500 Internal Server Error');
+
+                return;
+              }
+            });
+
+            //Set the user's influences to an empty object
+            client.hset('influences', user, '{}', function(error) {
+              if (error) {
+                res.writeHead(500, error);
+                res.end('500 Internal Server Error');
+
+                return;
+              }
+            });
+
+            res.writeHead(201, 'User created successfully');
+            res.end('201 Created');
+
+            return;
           });
         break;
 
@@ -239,15 +238,15 @@ new http.Server(function(req, res) {
     if (query.type) {
       switch(query.type) {
 
-        //If the client is trying to request a user's data
-        case 'LOAD_USER':
+        //If the client is trying to start a session using a login
+        case 'MAKE_SESSION':
 
           //Storing the username and password to variables for convenience
           let user = query.username && query.username.toLowerCase();
           let pass = query.password && query.password.toLowerCase();
 
           //If query parameters are missing respond with bad request
-          if (!user || !pass || user == '' || pass == '') {
+          if (!user || !pass) {
             res.writeHead(400, 'Invalid query parameters');
             res.end('400 Bad Request');
 
@@ -286,11 +285,96 @@ new http.Server(function(req, res) {
 
                 return;
               } else { //If the passwords do match
-                let cash;
-                let influences;
+                let unum = Number(new Date); //A unique number from the time of the session start
+                                             //This number makes it harder to duplicate the session id (security)
+                
+                let session = hash(String(user + unum)); //Create a session by hashing these two things (to make it hard to guess)
+                let ttl = 10; //The number of seconds the session has before it can't be redeemed
+                //Bind the session to the current user
+                client.setex(session, ttl, user, function(error) {
+                  if (error) {
+                    res.writeHead(500, error);
+                    res.end('500 Internal server error');
 
-                //Store the user's cash value to a variable cash
-                client.hget('cash', user, function(error, rep) {
+                    return;
+                  }
+
+                  res.writeHead(201, `Session has been started ttl=${ttl}`);
+                  res.end('201 Created');
+
+                  return;
+                });
+              }
+            });
+          }); 
+        break;
+
+        //If the user is trying to restore their session
+        case 'LOAD_SESSION':
+          let session = query.session; //The session id requested
+          let user = qury.username && query.username.toLowerCase(); //The user that is requesting it
+
+          //If query parameters are missing respond with bad request
+          if (!session || !user) {
+            res.writeHead(400, 'Invalid query parameters');
+            res.end('400 Bad request');
+
+            return;
+          }
+
+          //Respond with an error if the redis database is unavailable
+          if (redisUnvailable(res)) return;
+
+          //Validate that the session still exists
+          client.exists(session, function(error, rep) {
+            if (error) {
+              res.writeHead(500, error);
+              res.end('500 Internal server error');
+
+              return;
+            }
+
+            //If the session has expired or hasn't been created, deny access
+            if (!rep) {
+              res.writeHead(401, 'Session has timed out or is not authorized');
+              res.end('401 Unauthorized');
+
+              return;
+            }
+
+            //Validate that the user has the right session
+            client.get(session, function(error, rep) {
+              if (error) {
+                res.writeHead(500, error);
+                res.end('500 Internal server error');
+
+                return;
+              }
+
+              //If the session doesn't belong to the user, deny access
+              if (rep != user) {
+                res.writeHead(401, 'Session has timed out or is not authorized');
+                res.end('401 Unauthorized');
+
+                return;
+              }
+
+              let cash;
+              let influences;
+
+              //Store the user's cash value to a variable cash
+              client.hget('cash', user, function(error, rep) {
+                if (error) {
+                  res.writeHead(500, error);
+                  res.end('500 Internal Server Error');
+
+                  return;
+                }
+
+                cash = rep;
+
+                //Store the user's influences value to a variable influences
+                client.hget('influences', user, function(error, rep) {
                   if (error) {
                     res.writeHead(500, error);
                     res.end('500 Internal Server Error');
@@ -298,27 +382,15 @@ new http.Server(function(req, res) {
                     return;
                   }
 
-                  cash = rep;
+                  influences = rep;
 
-                  //Store the user's influences value to a variable influences
-                  client.hget('influences', user, function(error, rep) {
-                    if (error) {
-                      res.writeHead(500, error);
-                      res.end('500 Internal Server Error');
-
-                      return;
-                    }
-
-                    influences = rep;
-
-                    //Respond with an object containing the user's data
-                    res.end(JSON.stringify({cash: cash, influences: influences}));
-                    return;
-                  });
+                  //Respond with an object containing the user's data
+                  res.end(JSON.stringify({cash: cash, influences: influences}));
+                  return;
                 });
-              }
+              });
             });
-          }); 
+          });
         break;
 
         //If the query type is not supported respond with not implemented

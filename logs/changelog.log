@@ -1,4 +1,4 @@
-Version 1.2.14
+Version 1.2.15
 
 Updates since last stable build
 
@@ -21,3 +21,7 @@ Now responds with bad request for the right reason when requesting a user that d
 Adding an invalid login alert box when the login is invalid
 Disabling the highlighting of the alert box text
 Adding a log file describing the login process
+Renaming index html file to main because it's no longer the inital page
+Updated a redis query to use exceptions instead of conditions
+Made the login page redirect you to the main page after storing cookies
+Logging the cookie when the main page loads and then deleting it
