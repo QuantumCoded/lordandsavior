@@ -22,13 +22,13 @@ window.onload = function() {
         invalid();
         return;
       } else {
-        switch(data) {
-          case '401 Unauthorized': 
+        switch(String(data).toLowerCase()) {
+          case '401 unauthorized': 
             invalid();
             return;
           break;
 
-          case '400 Bad request':
+          case '400 bad request':
             invalid();
             return;
           break;

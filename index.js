@@ -57,14 +57,14 @@ const redisUnvailable = function(res) {
     //If the server has an error respond with internal server error
     if (error) {
       res.writeHead(500, error);
-      res.end('500 Internal Server Error');
+      res.end('500 Internal server error');
       return true;
     }
 
     //If the database doesn't reply respon with service unavailable
     if (!rep) {
       res.writeHead(503, 'Redis server not available');
-      res.end('503 Service Unavailable');
+      res.end('503 Service unavailable');
       return true;
     }
   });
@@ -97,7 +97,7 @@ new http.Server(function(req, res) {
           //If query parameters are missing respond with bad request
           if (!query.auth || !query.data) {
             res.writeHead(400, 'Invalid query parameters');
-            res.end('400 Bad Request');
+            res.end('400 Bad request');
 
             return;
           }
@@ -143,7 +143,7 @@ new http.Server(function(req, res) {
           //If query parameters are missing respond with bad request
           if (!user || !pass) {
             res.writeHead(400, 'Invalid query parameters');
-            res.end('400 Bad Request');
+            res.end('400 Bad request');
 
             return;
           }
@@ -155,7 +155,7 @@ new http.Server(function(req, res) {
           client.sismember('users', user, function(error, rep) {
             if (error) {
               res.writeHead(500, error);
-              res.end('500 Internal Server Error');
+              res.end('500 Internal server error');
               
               return;
             }
@@ -163,7 +163,7 @@ new http.Server(function(req, res) {
             //If the user exists respond with bad request
             if (rep) {
               res.writeHead(400, 'The user already exists');
-              res.end('400 Bad Request');
+              res.end('400 Bad request');
 
               return;
             }
@@ -172,7 +172,7 @@ new http.Server(function(req, res) {
             client.sadd('users', user, function(error) {
               if (error) {
                 res.writeHead(500, error);
-                res.end('500 Internal Server Error');
+                res.end('500 Internal server error');
 
                 return;
               }
@@ -182,7 +182,7 @@ new http.Server(function(req, res) {
             client.hset('passwords', user, hash(pass), function(error) {
               if (error) {
                 res.writeHead(500, error);
-                res.end('500 Internal Server Error');
+                res.end('500 Internal server error');
 
                 return;
               }
@@ -192,7 +192,7 @@ new http.Server(function(req, res) {
             client.hset('cash', user, 0, function(error) {
               if (error) {
                 res.writeHead(500, error);
-                res.end('500 Internal Server Error');
+                res.end('500 Internal server error');
 
                 return;
               }
@@ -202,7 +202,7 @@ new http.Server(function(req, res) {
             client.hset('influences', user, '{}', function(error) {
               if (error) {
                 res.writeHead(500, error);
-                res.end('500 Internal Server Error');
+                res.end('500 Internal server error');
 
                 return;
               }
@@ -218,7 +218,7 @@ new http.Server(function(req, res) {
         //If the type is not supported respond with not implemented
         default:
           res.writeHead(501, 'Query type not supported');
-          res.end('501 Not Implemented');
+          res.end('501 Not implemented');
 
           return;
         break;
@@ -226,7 +226,7 @@ new http.Server(function(req, res) {
     } else {
       //If the query type is not included respond with bad request
       res.writeHead(400, 'No query type provided');
-      res.end('400 Bad Request');
+      res.end('400 Bad request');
 
       return;
     }
@@ -248,7 +248,7 @@ new http.Server(function(req, res) {
           //If query parameters are missing respond with bad request
           if (!user || !pass) {
             res.writeHead(400, 'Invalid query parameters');
-            res.end('400 Bad Request');
+            res.end('400 Bad request');
 
             return;
           }
@@ -273,7 +273,7 @@ new http.Server(function(req, res) {
             client.hget('passwords', user, function(error, rep) {
               if (error) {
                 res.writeHead(500, error);
-                res.end('500 Internal Server Error');
+                res.end('500 Internal server error');
 
                 return;
               }
@@ -366,7 +366,7 @@ new http.Server(function(req, res) {
               client.hget('cash', user, function(error, rep) {
                 if (error) {
                   res.writeHead(500, error);
-                  res.end('500 Internal Server Error');
+                  res.end('500 Internal server error');
 
                   return;
                 }
@@ -377,7 +377,7 @@ new http.Server(function(req, res) {
                 client.hget('influences', user, function(error, rep) {
                   if (error) {
                     res.writeHead(500, error);
-                    res.end('500 Internal Server Error');
+                    res.end('500 Internal server error');
 
                     return;
                   }
@@ -396,7 +396,7 @@ new http.Server(function(req, res) {
         //If the query type is not supported respond with not implemented
         default:
           res.writeHead(501, 'Query type not supported');
-          res.end('501 Not Implemented');
+          res.end('501 Not implemented');
 
           return;
         break;

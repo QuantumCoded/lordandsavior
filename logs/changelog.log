@@ -1,4 +1,4 @@
-Version 1.2.18
+Version 1.2.19
 
 Updates since last stable build
 
@@ -29,3 +29,5 @@ Adding global error catching so I can see if it is the server breaking or if her
 Removing global error handling
 Removing let from temporary variable definitions (it doesn't like me redefining them)
 Stopping the login process if the login is invalid instead of saving the error to cookies
+Standardizing response capitalization as it was causing bugs with the client and it's good practice
+Converting error detection on client to use convert string to lowercase before checking errors
