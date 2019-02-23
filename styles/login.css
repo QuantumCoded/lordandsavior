@@ -101,7 +101,29 @@ body {
   outline: none;
 }
 
-.main-login-login {
+.main-login-alert {
+  position: absolute;
+  top: 55%;
+  left: 10%;
+  width: 0;
+  height: 0;
+
+  overflow: hidden;
+  white-space: nowrap;
+
+  margin: 0;
+
+  font-family: 'Consolas';
+
+  border-radius: 5px;
+
+  transform: translateX(-5px);
+  transition: height .2s linear 0s, width .2s linear .2s;
+
+  background-color: #ffaaaa;
+}
+
+.main-login-signup {
   position: absolute;
   top: 84%;
   left: 10%;

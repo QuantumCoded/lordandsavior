@@ -5,12 +5,25 @@ window.onload = function() {
   submit = document.getElementById('submit'); //The login button
   let user = document.getElementById('user'); //The username textbox
   let pass = document.getElementById('pass'); //The password textbox
+  let alert = document.getElementById('alert'); //The warning box when an error occurs
+
+  const invalid = function() {
+    alert.style.width = '13ch';
+    alert.style.height ='1em';
+    alert.style.padding = '4px';
+    alert.style.paddingTop = '0';
+  };
 
   //When the submit button is clicked
   submit.onclick = function() {
     //Send an AJAX request for the user's data
     new AJAXReq('GET', `type=LOAD_USER&username=${user.value}&password=${pass.value}`, 'json', function(data) {
-      console.log(JSON.stringify(data)); //Log the user's data
+      if (!data) {
+        invalid();
+        return;
+      }
+
+      console.log(JSON.stringify(data));
     });
   };
 };
