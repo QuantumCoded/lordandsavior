@@ -137,8 +137,8 @@ new http.Server(function(req, res) {
         //Handle the creation of a new user in the database
         case 'INIT_USER':
           //Convert both the username and password to lowercase (prevent duplicate account names)
-          let user = query.username && query.username.toLowerCase();
-          let pass = query.password && query.password.toLowerCase();
+          user = query.username && query.username.toLowerCase();
+          pass = query.password && query.password.toLowerCase();
 
           //If query parameters are missing respond with bad request
           if (!user || !pass) {
@@ -242,8 +242,8 @@ new http.Server(function(req, res) {
         case 'MAKE_SESSION':
 
           //Storing the username and password to variables for convenience
-          let user = query.username && query.username.toLowerCase();
-          let pass = query.password && query.password.toLowerCase();
+          user = query.username && query.username.toLowerCase();
+          pass = query.password && query.password.toLowerCase();
 
           //If query parameters are missing respond with bad request
           if (!user || !pass) {
@@ -311,8 +311,8 @@ new http.Server(function(req, res) {
 
         //If the user is trying to restore their session
         case 'LOAD_SESSION':
-          let session = query.session; //The session id requested
-          let user = qury.username && query.username.toLowerCase(); //The user that is requesting it
+          session = query.session; //The session id requested
+          user = qury.username && query.username.toLowerCase(); //The user that is requesting it
 
           //If query parameters are missing respond with bad request
           if (!session || !user) {

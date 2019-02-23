@@ -1,4 +1,4 @@
-Version 1.2.16
+Version 1.2.17
 
 Updates since last stable build
 
@@ -26,3 +26,5 @@ Updated a redis query to use exceptions instead of conditions
 Made the login page redirect you to the main page after storing cookies
 Logging the cookie when the main page loads and then deleting it
 Adding global error catching so I can see if it is the server breaking or if heroku is having problems
+Removing global error handling
+Removing let from temporary variable definitions (it doesn't like me redefining them)
