@@ -1,4 +1,4 @@
-Version 1.2.20
+Version 1.2.21
 
 Updates since last stable build
 
@@ -34,3 +34,5 @@ Converting error detection on client to use convert string to lowercase before c
 Adding the request object to the callback of AJAX
 Added session to the headers of the response to the MAKE_SESSION request
 Updating todo list
+Fixing typo in login script
+Adding handling for session created in

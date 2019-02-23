@@ -33,17 +33,19 @@ window.onload = function() {
             return;
           break;
 
+          case '201 created':
+            document.cookie = `session=${request.getResponseHeader('session')};path="/"`;
+
+            setTimeout(function() {
+              location.href = '/main';
+            }, 2);
+          break;
+
           default:
             console.warn('Unexpected response', data);
           break;
         }
       }
-
-      document.cookie = `session=${request.getResponseHeaders('session')};path="/"`;
-
-      setTimeout(function() {
-        location.href = '/main';
-      }, 2);
     });
   };
 };
