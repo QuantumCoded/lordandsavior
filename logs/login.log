@@ -1,0 +1,24 @@
+The problem of creating a secure way to login is actually extremely difficult, but I think I figured it out.
+
+Client                    Server                    Database
+AUTH_USER
+  username=
+  password=
+                          Recieve AUTH request
+                          Validate the user
+                          Create session ID
+                                                    Store session ID
+                          Send ID to client
+Store ID to cookies
+Switch to main page
+Load cookies
+LOAD_USER
+  session=
+                          Validate the session ID
+                                                    Delete the session ID
+                                                    Get the user's data
+                          Give user their data
+Load session
+Finished!
+
+If you can see any major flaws in the security of this system please contact me, I'd love to hear them.

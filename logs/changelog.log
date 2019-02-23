@@ -1,4 +1,4 @@
-Version 1.2.13
+Version 1.2.14
 
 Updates since last stable build
 
@@ -20,3 +20,4 @@ Adding the script behind the login page
 Now responds with bad request for the right reason when requesting a user that doesn't exist
 Adding an invalid login alert box when the login is invalid
 Disabling the highlighting of the alert box text
+Adding a log file describing the login process
