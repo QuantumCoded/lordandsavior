@@ -1,4 +1,4 @@
-Version 1.2.10
+Version 1.2.11
 
 Updates since last stable build
 
@@ -17,3 +17,4 @@ Added resources to routes
 Abstracting AJAX class to its own script
 Freshening up the signup and login pages
 Adding the script behind the login page
+Now responds with bad request for the right reason when requesting a user that doesn't exist

@@ -257,38 +257,40 @@ new http.Server(function(req, res) {
           //Respond with an error if the redis database is unavailable
           if(redisUnvailable(res)) return;
 
-          //Check to make sure the user's password matches
-          client.hget('passwords', user, function(error, rep) {
+          //Check to see if the user exists
+          client.sismember('users', user, function(error, rep) {
             if (error) {
               res.writeHead(500, error);
-              res.end('500 Internal Server Error');
-
-              return;
+              res.end('500 Internal server error');
             }
 
-            //If the passwords don't match respond with unauthorized
-            if (hash(pass) != rep) {
-              res.writeHead(401, 'The password is incorrect');
-              res.end('401 Unauthorized');
+            //If the user doesn't exist then respond with bad request
+            if (!rep) {
+              res.writeHead(400, 'User does not exist');
+              res.end('400 Bad request');
+            }
 
-              return;
-            } else { //If the passwords do match
-              let cash;
-              let influences;
+            //Check to make sure the user's password matches
+            client.hget('passwords', user, function(error, rep) {
+              if (error) {
+                res.writeHead(500, error);
+                res.end('500 Internal Server Error');
 
-              //Store the user's cash value to a variable cash
-              client.hget('cash', user, function(error, rep) {
-                if (error) {
-                  res.writeHead(500, error);
-                  res.end('500 Internal Server Error');
+                return;
+              }
 
-                  return;
-                }
+              //If the passwords don't match respond with unauthorized
+              if (hash(pass) != rep) {
+                res.writeHead(401, 'The password is incorrect');
+                res.end('401 Unauthorized');
 
-                cash = rep;
+                return;
+              } else { //If the passwords do match
+                let cash;
+                let influences;
 
-                //Store the user's influences value to a variable influences
-                client.hget('influences', user, function(error, rep) {
+                //Store the user's cash value to a variable cash
+                client.hget('cash', user, function(error, rep) {
                   if (error) {
                     res.writeHead(500, error);
                     res.end('500 Internal Server Error');
@@ -296,14 +298,26 @@ new http.Server(function(req, res) {
                     return;
                   }
 
-                  influences = rep;
+                  cash = rep;
 
-                  //Respond with an object containing the user's data
-                  res.end(JSON.stringify({cash: cash, influences: influences}));
-                  return;
+                  //Store the user's influences value to a variable influences
+                  client.hget('influences', user, function(error, rep) {
+                    if (error) {
+                      res.writeHead(500, error);
+                      res.end('500 Internal Server Error');
+
+                      return;
+                    }
+
+                    influences = rep;
+
+                    //Respond with an object containing the user's data
+                    res.end(JSON.stringify({cash: cash, influences: influences}));
+                    return;
+                  });
                 });
-              });
-            }
+              }
+            });
           }); 
         break;
 
