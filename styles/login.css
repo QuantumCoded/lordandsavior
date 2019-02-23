@@ -110,6 +110,7 @@ body {
 
   overflow: hidden;
   white-space: nowrap;
+  user-select: none;
 
   margin: 0;
 
