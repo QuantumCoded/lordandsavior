@@ -4,18 +4,19 @@
     <title>Lord And Savior</title>
     <link rel="stylesheet" type="text/css" href="/css-signup">
     <link rel="shortcut icon" href="/img-tomeo2">
-    <script type="text/javascript" src="/js-signup" type="text/javascript"></script>
+    <script src="/js-ajax" type="text/javascript"></script>
+    <script src="/js-signup" type="text/javascript"></script>
   </head>
 
   <body>
     <h1 class="main-header">Create an Account</h1>
     <div class="main-signup">
       <p class="main-signup-username_head">Username</p>
-      <input type="text" class="main-signup-username">
+      <input type="text" class="main-signup-username" autocomplete="off" id="user">
       <p class="main-signup-password_head">Password</p>
-      <input type="password" class="main-signup-password">
+      <input type="password" class="main-signup-password" autocomplete="off" id="pass">
       <a class="main-signup-login" href="/">Login here</a>
-      <div class="main-signup-submit">
+      <div class="main-signup-submit" id="submit">
         <div class="main-signup-sumbit-text">Submit</div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-Version 1.2.9
+Version 1.2.10
 
 Updates since last stable build
 
@@ -16,3 +16,4 @@ Added login page
 Added resources to routes
 Abstracting AJAX class to its own script
 Freshening up the signup and login pages
+Adding the script behind the login page
