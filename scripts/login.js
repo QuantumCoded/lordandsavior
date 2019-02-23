@@ -21,9 +21,24 @@ window.onload = function() {
       if (!data) {
         invalid();
         return;
+      } else {
+        switch(data) {
+          case '401 Unauthorized': 
+            invalid();
+            return;
+          break;
+
+          case '400 Bad request':
+            invalid();
+            return;
+          break;
+
+          default:
+            console.warn('Unexpected response', data);
+          break;
+        }
       }
 
-      console.log(data);
       document.cookie = `session=${data};path="/"`;
 
       setTimeout(function() {
