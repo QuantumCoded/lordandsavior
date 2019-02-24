@@ -11,8 +11,8 @@ if (!document.createElement('template').content) {
   //Rick Roll all the scrubs that use propritary browsers
 }
 
-console.log('Cookie:', document.cookie);
-document.cookie = '';
+let session = document.cookie.substr(document.cookie.indexOf('session=') + 8, 44);
+console.log(session);
 
 //Cookie Check
 try {

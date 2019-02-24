@@ -1,4 +1,4 @@
-Version 1.2.22
+Version 1.2.23
 
 Updates since last stable build
 
@@ -37,3 +37,4 @@ Updating todo list
 Fixing typo in login script
 Adding handling for session created in
 Removing writing to cookies in the main script
+Added support for parsing the session id out of the cookie
