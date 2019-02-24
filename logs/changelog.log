@@ -1,4 +1,4 @@
-Version 1.2.24
+Version 1.2.25
 
 Updates since last stable build
 
@@ -39,3 +39,4 @@ Adding handling for session created in
 Removing writing to cookies in the main script
 Added support for parsing the session id out of the cookie
 Passing username to the main page and loading the session
+Using JSON to pass data over cookies

@@ -10,14 +10,14 @@ if (!document.createElement('template').content) {
   //Rick Roll all the scrubs that use propritary browsers
 }
 
-var cookies = {};
+var cookies;
 var data;
 
-let _cookies = document.cookie.split(';');
-
-_cookies.map(c => c.split('=')).forEach(function(pair) {
-  cookies[pair[0]] = [pair[1]];
-});
+try {
+  cookies = JSON.parse(document.cookie);
+} catch(error) {
+  alert(error);
+}
 
 if (!cookies.session || !cookies.user) {
   alert('Fatal Error: Bad data transfer');
