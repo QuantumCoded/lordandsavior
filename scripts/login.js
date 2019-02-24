@@ -34,7 +34,7 @@ window.onload = function() {
           break;
 
           case '201 created':
-            document.cookie = `${JSON.stringify({session: request.getRequestHeader('session'), user: String(user.value).toLowerCase()})};path="/"`;
+            document.cookie = `${JSON.stringify({session: request.getResponseHeader('session'), user: String(user.value).toLowerCase()})};path="/"`;
 
             setTimeout(function() {
               location.href = '/main';
