@@ -14,6 +14,7 @@ var cookies;
 var data;
 
 try {
+  console.log(document.cookie);
   cookies = JSON.parse(document.cookie);
 } catch(error) {
   alert(error);
