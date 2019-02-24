@@ -1,4 +1,4 @@
-Version 1.2.23
+Version 1.2.24
 
 Updates since last stable build
 
@@ -38,3 +38,4 @@ Fixing typo in login script
 Adding handling for session created in
 Removing writing to cookies in the main script
 Added support for parsing the session id out of the cookie
+Passing username to the main page and loading the session

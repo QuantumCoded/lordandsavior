@@ -1,8 +1,7 @@
 //Predefined variables
 const ups = 9;       //Updates Per Second (how fast the counter re-renders)
 var debounce = true; //Debounce variable used to prevent DAS autoclick on space
-
-var image; //Cookie stored in browser [TO BE DEPRICATED]
+var ready = false;   //If the user's instance is loaded in and ready to play
 
 //Templates support check
 if (!document.createElement('template').content) {
@@ -11,21 +10,29 @@ if (!document.createElement('template').content) {
   //Rick Roll all the scrubs that use propritary browsers
 }
 
-let session = document.cookie.substr(document.cookie.indexOf('session=') + 8, 44);
-console.log(session);
+var cookies = {};
+var data;
 
-//Cookie Check
-try {
-} catch(error) {
-  //The client is not using cookies, prompt them
-  console.warn('Possible parsing failure, resetting cookies');
-  if (!confirm('This site uses cookies to save your progress, is this okay?'))
-    location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
-    //Rick Roll all the scrubs that don't agree to the ToS
+let _cookies = document.cookie.split(';');
+
+_cookies.map(c => c.split('=')).forEach(function(pair) {
+  cookies[pair[0]] = [pair[1]];
+});
+
+if (!cookies.session || !cookies.user) {
+  alert('Fatal Error: Bad data transfer');
 }
 
-//The main data object, what's stored in cookies [TO BE REFACTORED]
-var data;
+new AJAXReq('GET', `type=LOAD_SESSION&session=${cookies.session}&user=${cookies.user}`, function(_data) {
+  try {
+    data = JSON.parse(_data);
+    ready = true;
+  } catch(error) {
+    alert(`Error parsing data: ${_data}`);
+  }
+
+  console.log(_data);
+});
 
 //Flatten all the influences into storable data and save it in cookies [TO BE REFACTORED]
 const stashInfluences = function() {
@@ -100,11 +107,10 @@ window.addEventListener('load', function() {
 
   //Main loop
   setInterval(function() {
-    if (!typeof data) return; //Wait for the user to accept cookies before saving any
+    if (!data || !ready) return; //Wait for the data to get loaded and the client to be ready before running
 
     modifyCash(data.cashPerSecond / ups); //Add the cashPerSecond to the user's cash value
     updateCash();                         //Update the counter number
-    //Save the user's data to the browser [TO BE REFACTORED]
   }, 1000 / ups);
 });
 

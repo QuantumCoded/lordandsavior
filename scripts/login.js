@@ -17,7 +17,7 @@ window.onload = function() {
   //When the submit button is clicked
   submit.onclick = function() {
     //Send an AJAX request for the user's data
-    new AJAXReq('GET', `type=MAKE_SESSION&username=${user.value}&password=${pass.value}`, function(data, request) {
+    new AJAXReq('GET', `type=MAKE_SESSION&username=${String(user.value).toLowerCase()}&password=${pass.value}`, function(data, request) {
       if (!data) {
         invalid();
         return;
@@ -34,7 +34,7 @@ window.onload = function() {
           break;
 
           case '201 created':
-            document.cookie = `session=${request.getResponseHeader('session')};path="/"`;
+            document.cookie = `session=${request.getResponseHeader('session')};user=${String(user.value).toLowerCase()};path="/"`;
 
             setTimeout(function() {
               location.href = '/main';
