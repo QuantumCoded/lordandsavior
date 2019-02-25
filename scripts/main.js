@@ -15,10 +15,12 @@ var cookies = {}; //The main cookie object
 
 try {
   let _cookies = document.cookie.replace(/ /g, '').split(';'); //Split up the cookies and format them
+  console.log(_cookies);
   _cookies.forEach(function(cookie) {      //Store each of the cookies in the main cookie obect
     if (cookie.indexOf('=') == -1) return; //If the cookie is invalid then don't try to parse it
 
     let pair = cookie.split('='); //Split the cookie into a pair
+    console.log(pair);
     cookies[pair[0]] = pair[1];   //Store that pair in the cookie object
   });
 

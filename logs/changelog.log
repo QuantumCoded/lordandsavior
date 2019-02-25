@@ -1,4 +1,4 @@
-Version 1.2.34
+Version 1.2.35
 
 Updates since last stable build
 
@@ -47,3 +47,4 @@ Moving the ajax script to load before the main script
 Fixing a bug with the cookie value in login script
 Removing all depricated code from the main script as it was causing problems
 Removing more depricated code
+Adding more logging to the session transfer process
