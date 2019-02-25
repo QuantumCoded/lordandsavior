@@ -108,7 +108,7 @@ window.addEventListener('load', function() {
   setInterval(function() {
     //Wait for the data to get loaded and the client to be ready before running
 
-    modifyCash(data.cashPerSecond / ups); //Add the cashPerSecond to the user's cash value
+    //Add the cashPerSecond to the user's cash value
     updateCash();                         //Update the counter number
   }, 1000 / ups);
 });
