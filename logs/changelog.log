@@ -1,4 +1,4 @@
-Version 1.2.27
+Version 1.2.29
 
 Updates since last stable build
 
@@ -42,3 +42,4 @@ Passing username to the main page and loading the session
 Using JSON to pass data over cookies
 Fixing typo
 Logging incoming cookies
+Tweaks to session loading

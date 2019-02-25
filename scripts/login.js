@@ -39,7 +39,7 @@ window.onload = function() {
           break;
 
           case '201 created':
-            setCookie('session', request.getResponseHeader('session'));
+            setCookie('session', escape(request.getResponseHeader('session')));
             setCookie('username', escape(user.value.toLowerCase));
 
             setTimeout(function() {

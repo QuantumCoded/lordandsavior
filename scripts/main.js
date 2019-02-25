@@ -14,7 +14,7 @@ console.log('Cookie:', document.cookie);
 var cookies = {}; //The main cookie object
 
 try {
-  let _cookies = document.cookies.replace(/ /g, '').split(';'); //Split up the cookies and format them
+  let _cookies = document.cookie.replace(/ /g, '').split(';'); //Split up the cookies and format them
   _cookies.forEach(function(cookie) {      //Store each of the cookies in the main cookie obect
     if (cookie.indexOf('=') == -1) return; //If the cookie is invalid then don't try to parse it
 
@@ -23,17 +23,16 @@ try {
   });
 
   //If the session could not be found reload the session
-  if (!cookies.session || !cookies.username) {
-    alert('There was an error loading session data');
-    location.href = '/';
-  }
+  if (!cookies.session || !cookies.username) throw 'Bad cookie params'
 
   //Query the database for the user's session
-  new AJAXReq('GET', `type=LOAD_SESSION&session=${cookies.session}&username=${cookies.username}`, function(res) {
+  new AJAXReq('GET', `type=LOAD_SESSION&session=${escape(cookies.session)}&username=${escape(cookies.username)}`, function(res) {
     console.log(res);
   });
 } catch(error) {
   alert(error);
+  alert('There was an error loading session data');
+  location.href = '/';
 }
 
 if (!cookies.session || !cookies.user) {
