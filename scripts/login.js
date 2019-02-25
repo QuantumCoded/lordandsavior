@@ -40,7 +40,7 @@ window.onload = function() {
 
           case '201 created':
             setCookie('session', escape(request.getResponseHeader('session')));
-            setCookie('username', escape(user.value.toLowerCase));
+            setCookie('username', escape(user.value.toLowerCase()));
 
             setTimeout(function() {
               location.href = '/main';
