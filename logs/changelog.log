@@ -1,4 +1,4 @@
-Version 1.2.29
+Version 1.2.30
 
 Updates since last stable build
 
@@ -43,3 +43,4 @@ Using JSON to pass data over cookies
 Fixing typo
 Logging incoming cookies
 Tweaks to session loading
+Moving the ajax script to load before the main script
