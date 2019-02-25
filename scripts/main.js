@@ -40,7 +40,7 @@ try {
   //location.href = '/';
 }
 
-new AJAXReq('GET', `type=LOAD_SESSION&session=${cookies.session}&user=${cookies.user}`, function(_data) {
+new AJAXReq('GET', `type=LOAD_SESSION&session=${cookies.session}&username=${cookies.user}`, function(_data) {
   try {
     data = JSON.parse(_data);
     ready = true;

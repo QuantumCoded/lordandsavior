@@ -1,4 +1,4 @@
-Version 1.2.37
+Version 1.2.38
 
 Updates since last stable build
 
@@ -50,3 +50,4 @@ Removing more depricated code
 Adding more logging to the session transfer process
 More tweaks
 Fixing typo in server as well as making the error logging better
+Fixing bug with query names
