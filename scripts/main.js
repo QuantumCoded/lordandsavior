@@ -1,7 +1,6 @@
 //Predefined variables
 const ups = 9;       //Updates Per Second (how fast the counter re-renders)
 var debounce = true; //Debounce variable used to prevent DAS autoclick on space
-var ready = false;   //If the user's instance is loaded in and ready to play
 
 //Templates support check
 if (!document.createElement('template').content) {
@@ -10,12 +9,29 @@ if (!document.createElement('template').content) {
   //Rick Roll all the scrubs that use propritary browsers
 }
 
-var cookies;
-var data;
+console.log('Cookie:', document.cookie);
+
+var cookies = {}; //The main cookie object
 
 try {
-  console.log(document.cookie);
-  cookies = JSON.parse(document.cookie);
+  let _cookies = document.cookies.replace(/ /g, '').split(';'); //Split up the cookies and format them
+  _cookies.forEach(function(cookie) {      //Store each of the cookies in the main cookie obect
+    if (cookie.indexOf('=') == -1) return; //If the cookie is invalid then don't try to parse it
+
+    let pair = cookie.split('='); //Split the cookie into a pair
+    cookies[pair[0]] = pair[1];   //Store that pair in the cookie object
+  });
+
+  //If the session could not be found reload the session
+  if (!cookies.session || !cookies.username) {
+    alert('There was an error loading session data');
+    location.href = '/';
+  }
+
+  //Query the database for the user's session
+  new AJAXReq('GET', `type=LOAD_SESSION&session=${cookies.session}&username=${cookies.username}`, function(res) {
+    console.log(res);
+  });
 } catch(error) {
   alert(error);
 }

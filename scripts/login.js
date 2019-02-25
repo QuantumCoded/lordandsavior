@@ -1,5 +1,10 @@
 var submit; //Declaring submit to global scope
 
+//Store a cookie and set it to expire in 30 seconds
+const setCookie = function(name, value) {
+  document.cookie=name + "=" + escape(value) + "; path=/; max-age=30000";
+};
+
 //Wait for the page to load
 window.onload = function() {
   submit = document.getElementById('submit'); //The login button
@@ -34,7 +39,8 @@ window.onload = function() {
           break;
 
           case '201 created':
-            document.cookie = `${JSON.stringify({session: request.getResponseHeader('session'), user: String(user.value).toLowerCase()})};path="/"`;
+            setCookie('session', request.getResponseHeader('session'));
+            setCookie('username', escape(user.value.toLowerCase));
 
             setTimeout(function() {
               location.href = '/main';
