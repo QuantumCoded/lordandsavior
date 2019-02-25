@@ -11,6 +11,7 @@ if (!document.createElement('template').content) {
 
 console.log('Cookie:', document.cookie);
 
+const acceptedCookies = ['session', 'username'];
 var cookies = {}; //The main cookie object
 
 try {
@@ -20,7 +21,7 @@ try {
     let pair = cookie.split('='); //Split the cookie into a pair
     if (pair.length != 2) return;
 
-    console.log(pair);
+    if (acceptedCookies.indexOf(pair[0]) == -1) return;
     cookies[pair[0]] = pair[1];   //Store that pair in the cookie object
   });
 

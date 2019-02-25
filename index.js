@@ -323,7 +323,9 @@ new http.Server(function(req, res) {
           }
 
           //Respond with an error if the redis database is unavailable
+          console.log('before redis check on LOAD_SESSION');
           if (redisUnvailable(res)) return;
+          console.log('after redis check on LOAD_SESSION');
 
           //Validate that the session still exists
           client.exists(session, function(error, rep) {
