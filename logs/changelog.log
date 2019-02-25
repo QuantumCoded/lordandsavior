@@ -1,4 +1,4 @@
-Version 1.2.31
+Version 1.2.32
 
 Updates since last stable build
 
@@ -45,3 +45,4 @@ Logging incoming cookies
 Tweaks to session loading
 Moving the ajax script to load before the main script
 Fixing a bug with the cookie value in login script
+Removing all depricated code from the main script as it was causing problems

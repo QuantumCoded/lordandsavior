@@ -50,16 +50,6 @@ new AJAXReq('GET', `type=LOAD_SESSION&session=${cookies.session}&user=${cookies.
   console.log(_data);
 });
 
-//Flatten all the influences into storable data and save it in cookies [TO BE REFACTORED]
-const stashInfluences = function() {
-  for (let i in data.influences) {                                                //For each of the influence groupings
-    data.influences[i].forEach(i => i.destroy());                                 //Remove influences' effects
-    data.influences[i] = data.influences[i].map(i => [i.type, i.cps, 0, i.sell]); //Convert influences into construction params
-  }
-
-  //Save the user's state to their browser cookies
-};
-
 //Influence the cashPerSecond value
 const influence = function(value) {
   data.cashPerSecond += value;
@@ -92,13 +82,6 @@ class cashInfluence {
       (data.influences[this.type] || (data.influences[this.type] = [])).push(this);
     }
   }
-}
-
-//Unflatten influences before page finishes loading
-temp = Object.assign({}, data.influences);                     //Clone flattened data
-data.influences = {};                                          //Clear flattened data
-for (let i in temp) {
-  temp[i].map(p => new cashInfluence(p[0], p[1], p[2], p[3])); //Repopulate by unflattening clone data 
 }
 
 //When the user's leaving the page save the user's data to the browser [TO BE REFACTORED]
