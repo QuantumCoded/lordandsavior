@@ -17,12 +17,14 @@ try {
   let _cookies = document.cookie.replace(/ /g, '').split(';'); //Split up the cookies and format them
   console.log(_cookies);
   _cookies.forEach(function(cookie) {      //Store each of the cookies in the main cookie obect
-    if (cookie.indexOf('=') == -1) return; //If the cookie is invalid then don't try to parse it
-
     let pair = cookie.split('='); //Split the cookie into a pair
+    if (pair.length != 2) return;
+
     console.log(pair);
     cookies[pair[0]] = pair[1];   //Store that pair in the cookie object
   });
+
+  console.log(cookies);
 
   //If the session could not be found reload the session
   if (!cookies.session || !cookies.username) throw 'Bad cookie params'
@@ -33,12 +35,8 @@ try {
   });
 } catch(error) {
   alert(error);
-  alert('There was an error loading session data');
-  location.href = '/';
-}
-
-if (!cookies.session || !cookies.user) {
-  alert('Fatal Error: Bad data transfer');
+  //alert('There was an error loading session data');
+  //location.href = '/';
 }
 
 new AJAXReq('GET', `type=LOAD_SESSION&session=${cookies.session}&user=${cookies.user}`, function(_data) {
@@ -54,14 +52,14 @@ new AJAXReq('GET', `type=LOAD_SESSION&session=${cookies.session}&user=${cookies.
 
 //Influence the cashPerSecond value
 const influence = function(value) {
-  data.cashPerSecond += value;
+  //data.cashPerSecond += value;
 };
 
 //Safely modify the ammount of cash the player has
 const modifyCash = function(value) {
-  if (data.cash + value < 0) return false; //Make sure that the modification doesn't make you cash go below 0
-  data.cash += value;
-  return true;
+  //if (data.cash + value < 0) return false; //Make sure that the modification doesn't make you cash go below 0
+  //data.cash += value;
+  //return true;
 };
 
 //Class for affecting cash over a period of time [TO BE REFACTORED]
@@ -81,7 +79,7 @@ class cashInfluence {
     //If creating this influence makes the user's cash less than zero then don't create the influence
     if (modifyCash(-this.cost)) {
       influence(this.cps);
-      (data.influences[this.type] || (data.influences[this.type] = [])).push(this);
+      //(data.influences[this.type] || (data.influences[this.type] = [])).push(this);
     }
   }
 }
@@ -98,12 +96,12 @@ window.addEventListener('load', function() {
 
   //Refresh the number displayed on the counter
   const updateCash = function() {
-    counter.innerHTML = `Cash: ${Math.floor(data.cash)}`;
+    //counter.innerHTML = `Cash: ${Math.floor(data.cash)}`;
   };  
 
   //When the button is clicked increase the user's cash by the click value
   button.onclick = function() {
-    modifyCash(data.clickValue);
+   //modifyCash(data.clickValue);
   };
 
   //Main loop

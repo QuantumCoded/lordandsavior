@@ -1,4 +1,4 @@
-Version 1.2.35
+Version 1.2.36
 
 Updates since last stable build
 
@@ -48,3 +48,4 @@ Fixing a bug with the cookie value in login script
 Removing all depricated code from the main script as it was causing problems
 Removing more depricated code
 Adding more logging to the session transfer process
+More tweaks

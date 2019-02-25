@@ -288,8 +288,8 @@ new http.Server(function(req, res) {
                 let unum = Number(new Date); //A unique number from the time of the session start
                                              //This number makes it harder to duplicate the session id (security)
                 
-                let session = hash(String(user + unum)); //Create a session by hashing these two things (to make it hard to guess)
-                let ttl = 10; //The number of seconds the session has before it can't be redeemed
+                let session = Array.from(Buffer.from(hash(String(user + unum)))).join(''); //Create a session by hashing these two things (to make it hard to guess)
+                let ttl = 60; //The number of seconds the session has before it can't be redeemed
                 //Bind the session to the current user
                 client.setex(session, ttl, user, function(error) {
                   if (error) {
@@ -299,7 +299,7 @@ new http.Server(function(req, res) {
                     return;
                   }
 
-                  res.writeHead(201, `Session has been started ttl=${ttl}`, {'session': session});
+                  res.writeHead(201, `Session has been started ttl=${ttl}`, {session: session});
                   res.end('201 Created');
 
                   return;
