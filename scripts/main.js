@@ -106,7 +106,7 @@ window.addEventListener('load', function() {
 
   //Main loop
   setInterval(function() {
-    if (!data || !ready) return; //Wait for the data to get loaded and the client to be ready before running
+    //Wait for the data to get loaded and the client to be ready before running
 
     modifyCash(data.cashPerSecond / ups); //Add the cashPerSecond to the user's cash value
     updateCash();                         //Update the counter number
