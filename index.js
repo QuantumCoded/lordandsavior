@@ -323,9 +323,7 @@ new http.Server(function(req, res) {
           }
 
           //Respond with an error if the redis database is unavailable
-          console.log('before redis check on LOAD_SESSION');
           if (redisUnvailable(res)) return;
-          console.log('after redis check on LOAD_SESSION');
 
           //Validate that the session still exists
           client.exists(session, function(error, rep) {
@@ -338,7 +336,7 @@ new http.Server(function(req, res) {
 
             //If the session has expired or hasn't been created, deny access
             if (!rep) {
-              res.writeHead(401, 'Session has timed out or is not authorized');
+              res.writeHead(401, 'Session has timed out or is not authorized (to)');
               res.end('401 Unauthorized');
 
               return;
@@ -355,7 +353,7 @@ new http.Server(function(req, res) {
 
               //If the session doesn't belong to the user, deny access
               if (rep != user) {
-                res.writeHead(401, 'Session has timed out or is not authorized');
+                res.writeHead(401, 'Session has timed out or is not authorized (ua)');
                 res.end('401 Unauthorized');
 
                 return;

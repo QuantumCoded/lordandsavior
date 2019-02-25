@@ -51,3 +51,4 @@ Adding more logging to the session transfer process
 More tweaks
 Fixing typo in server as well as making the error logging better
 Fixing bug with query names
+Making errors more descriptive
