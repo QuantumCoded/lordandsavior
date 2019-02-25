@@ -312,7 +312,7 @@ new http.Server(function(req, res) {
         //If the user is trying to restore their session
         case 'LOAD_SESSION':
           session = query.session; //The session id requested
-          user = qury.username && query.username.toLowerCase(); //The user that is requesting it
+          user = query.username && query.username.toLowerCase(); //The user that is requesting it
 
           //If query parameters are missing respond with bad request
           if (!session || !user) {
@@ -433,5 +433,5 @@ new http.Server(function(req, res) {
 });
 
 process.on('uncaughtException', function(err) {
-  console.log('Caught exception: ' + err);
+  console.error(err);
 });

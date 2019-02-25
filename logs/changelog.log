@@ -49,4 +49,4 @@ Removing all depricated code from the main script as it was causing problems
 Removing more depricated code
 Adding more logging to the session transfer process
 More tweaks
-More tweaks
+Fixing typo in server as well as making the error logging better
