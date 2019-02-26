@@ -31,8 +31,10 @@ try {
   if (!cookies.session || !cookies.username) throw 'Bad cookie params'
 
   //Query the database for the user's session
-  new AJAXReq('GET', `type=LOAD_SESSION&session=${escape(cookies.session)}&username=${escape(cookies.username)}`, function(res) {
+
+  new AJAXReq('GET', `type=LOAD_SESSION&session=${cookies.session}&username=${escape(cookies.username)}`, function(res) {
     console.log(res);
+    console.log(cookies.username, escape(cookies.username));
   });
 } catch(error) {
   alert(error);

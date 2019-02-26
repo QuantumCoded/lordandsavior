@@ -317,6 +317,8 @@ new http.Server(function(req, res) {
           session = query.session; //The session id requested
           user = query.username && query.username.toLowerCase(); //The user that is requesting it
 
+          console.log('a session is being loaded by', user, query.username);
+
           //If query parameters are missing respond with bad request
           if (!session || !user) {
             res.writeHead(400, 'Invalid query parameters');
