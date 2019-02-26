@@ -13,6 +13,7 @@ console.log('Cookie:', document.cookie);
 
 const acceptedCookies = ['session', 'username'];
 var cookies = {}; //The main cookie object
+var data;         //The main data object
 
 try {
   let _cookies = document.cookie.replace(/ /g, '').split(';'); //Split up the cookies and format them
@@ -25,33 +26,23 @@ try {
     cookies[pair[0]] = pair[1];   //Store that pair in the cookie object
   });
 
-  console.log(cookies);
-
   //If the session could not be found reload the session
   if (!cookies.session || !cookies.username) throw 'Bad cookie params'
 
   //Query the database for the user's session
-
   new AJAXReq('GET', `type=LOAD_SESSION&session=${cookies.session}&username=${escape(cookies.username)}`, function(res) {
-    console.log(res);
-    console.log(cookies.username, escape(cookies.username));
+    if (String(res).toLower() != '401 unauthorized') {
+      return;
+    } else {
+      data = JSON.parse(res);
+      console.log(data);
+    }
   });
 } catch(error) {
-  alert(error);
-  //alert('There was an error loading session data');
-  //location.href = '/';
+  console.error(error);
+  alert('There was an error loading session data');
+  location.href = '/';
 }
-
-new AJAXReq('GET', `type=LOAD_SESSION&session=${cookies.session}&username=${cookies.user}`, function(_data) {
-  try {
-    data = JSON.parse(_data);
-    ready = true;
-  } catch(error) {
-    alert(`Error parsing data: ${_data}`);
-  }
-
-  console.log(_data);
-});
 
 //Influence the cashPerSecond value
 const influence = function(value) {

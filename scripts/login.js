@@ -22,7 +22,7 @@ window.onload = function() {
   //When the submit button is clicked
   submit.onclick = function() {
     //Send an AJAX request for the user's data
-    new AJAXReq('GET', `type=MAKE_SESSION&username=${String(user.value).toLowerCase()}&password=${pass.value}`, function(data, request) {
+    new AJAXReq('GET', `type=MAKE_SESSION&username=${escape(user.value).toLowerCase()}&password=${escape(pass.value)}`, function(data, request) {
       if (!data) {
         invalid();
         return;

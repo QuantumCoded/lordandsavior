@@ -1,4 +1,4 @@
-Version 1.2.41
+Version 1.2.42
 
 Updates since last stable build
 
@@ -53,3 +53,4 @@ Fixing typo in server as well as making the error logging better
 Fixing bug with query names
 Making errors more descriptive
 Adding logging
+Removing all the logs out and fixing login script

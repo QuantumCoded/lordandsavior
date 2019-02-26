@@ -299,9 +299,6 @@ new http.Server(function(req, res) {
                     return;
                   }
 
-                  console.log('made a session', session);
-                  console.log('owned by user', user);
-
                   res.writeHead(201, `Session has been started ttl=${ttl}`, {session: session});
                   res.end('201 Created');
 
@@ -316,8 +313,6 @@ new http.Server(function(req, res) {
         case 'LOAD_SESSION':
           session = query.session; //The session id requested
           user = query.username && query.username.toLowerCase(); //The user that is requesting it
-
-          console.log('a session is being loaded by', user, query.username);
 
           //If query parameters are missing respond with bad request
           if (!session || !user) {
@@ -358,9 +353,6 @@ new http.Server(function(req, res) {
 
               //If the session doesn't belong to the user, deny access
               if (rep != user) {
-                console.log('the server says the session is owned by', rep);
-                console.log('the user requesting the session is', user);
-
                 res.writeHead(401, 'Session has timed out or is not authorized (ua)');
                 res.end('401 Unauthorized');
 
