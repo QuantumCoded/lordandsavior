@@ -300,6 +300,7 @@ new http.Server(function(req, res) {
                   }
 
                   console.log('made a session', session);
+                  console.log('owned by user', user);
 
                   res.writeHead(201, `Session has been started ttl=${ttl}`, {session: session});
                   res.end('201 Created');
@@ -357,7 +358,7 @@ new http.Server(function(req, res) {
               if (rep != user) {
                 console.log('the server says the session is owned by', rep);
                 console.log('the user requesting the session is', user);
-                
+
                 res.writeHead(401, 'Session has timed out or is not authorized (ua)');
                 res.end('401 Unauthorized');
 
