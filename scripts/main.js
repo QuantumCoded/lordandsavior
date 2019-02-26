@@ -9,8 +9,6 @@ if (!document.createElement('template').content) {
   //Rick Roll all the scrubs that use propritary browsers
 }
 
-console.log('Cookie:', document.cookie);
-
 const acceptedCookies = ['session', 'username'];
 var cookies = {}; //The main cookie object
 var data;         //The main data object
@@ -30,12 +28,10 @@ try {
 
   //Query the database for the user's session
   new AJAXReq('GET', `type=LOAD_SESSION&session=${cookies.session}&username=${escape(cookies.username)}`, function(res) {
-    if (String(res).toLowerCase() != '401 unauthorized') {
-      return;
-    } else {
-      data = JSON.parse(res);
-      console.log(data);
-    }
+    if (String(res).toLowerCase() == '401 unauthorized') return;
+
+    data = JSON.parse(res);
+    console.log(data);
   });
 } catch(error) {
   console.error(error);

@@ -1,4 +1,4 @@
-Version 1.2.43
+Version 1.2.44
 
 Updates since last stable build
 
@@ -55,3 +55,4 @@ Making errors more descriptive
 Adding logging
 Removing all the logs out and fixing login script
 Fixing bug with making the username lowercase
+Fixing bug with impropper error handling
