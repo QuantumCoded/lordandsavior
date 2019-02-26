@@ -17,7 +17,6 @@ var data;         //The main data object
 
 try {
   let _cookies = document.cookie.replace(/ /g, '').split(';'); //Split up the cookies and format them
-  console.log(_cookies);
   _cookies.forEach(function(cookie) {      //Store each of the cookies in the main cookie obect
     let pair = cookie.split('='); //Split the cookie into a pair
     if (pair.length != 2) return;
@@ -31,7 +30,7 @@ try {
 
   //Query the database for the user's session
   new AJAXReq('GET', `type=LOAD_SESSION&session=${cookies.session}&username=${escape(cookies.username)}`, function(res) {
-    if (String(res).toLower() != '401 unauthorized') {
+    if (String(res).toLowerCase() != '401 unauthorized') {
       return;
     } else {
       data = JSON.parse(res);

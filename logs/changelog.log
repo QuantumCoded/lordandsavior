@@ -1,4 +1,4 @@
-Version 1.2.42
+Version 1.2.43
 
 Updates since last stable build
 
@@ -54,3 +54,4 @@ Fixing bug with query names
 Making errors more descriptive
 Adding logging
 Removing all the logs out and fixing login script
+Fixing bug with making the username lowercase
