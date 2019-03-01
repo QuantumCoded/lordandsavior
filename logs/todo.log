@@ -4,9 +4,18 @@ Create protocol for getting a user's data off the database - DONE
 Create protocol for checking for entries in the database - DONE
 Implement account creation into the sign up page 
 Create method to write a user's state to the database
-Create method to initiate a user's state from the database - IN PROGRESS
+Create method to initiate a user's state from the database - HALTED
 Implement error checking for the sign up and log in system - DONE
 Fix the item templates in the shop gui
 Create method for purchasing items as well as selling them
 Create items to populate the shop
 Await user feedback on what to do next
+Rework the query system and look into heroku's HTTPS - TOP PRIORITYImplement account creation into the sign up page 
+Create method to write a user's state to the database
+Create method to initiate a user's state from the database - HALTED
+Implement error checking for the sign up and log in system - DONE
+Fix the item templates in the shop gui
+Create method for purchasing items as well as selling them
+Create items to populate the shop
+Await user feedback on what to do next
+Rework the query system and look into heroku's HTTPS - TOP PRIORITY

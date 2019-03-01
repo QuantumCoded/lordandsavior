@@ -1,0 +1,16 @@
+These are things that need to be recreated differently
+
+Data query system
+  - Reworking Process
+    Locate all of the points in which data is sent and recieved
+    Decide what data is being sent and recieved for each query
+    Go through each one and recreate it using headers
+    
+  - Security
+    the current system that's set in place it terrible here
+    the content of a user's query can be seen in plain text
+    from just the URL alone
+  
+    - Fix
+      See if there is a way to tap into Heroku's https through the DNS
+      
