@@ -285,7 +285,7 @@ new http.Server(function(req, res) {
 
                 return;
               } else { //If the passwords do match
-                let session = hash() //Get the user's session ID
+                let session = hash(user + process.env.SALT); //Get the user's session ID
                 let ttl = 3600; //The number of seconds the session has before it can't be redeemed
 
                 //Bind the session to the current user

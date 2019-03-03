@@ -1,4 +1,4 @@
-Version 1.2.51
+Version 1.2.52
 
 Updates since last stable build
 
@@ -63,3 +63,4 @@ Fixing bug with headers in AJAX module
 Fixing bug with headers in server script
 Fixing bug with how data was being loaded in the main script
 Refactoring sessions
+Fixing bug with generating session ids
