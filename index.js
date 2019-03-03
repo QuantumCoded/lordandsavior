@@ -96,14 +96,14 @@ new http.Server(function(req, res) {
         case 'COMMAND':
           //If query parameters are missing respond with bad request
           if (!req.headers.auth || !req.headers.data) {
-            res.writeHead(400, 'Invalid query parameters');
+            res.writeHead(400, 'Invalid request headers');
             res.end('400 Bad request');
 
             return;
           }
 
           if (hash(req.headers.auth) != hash(process.env.AUTH_KEY)) {
-            res.writeHead(401, 'The auth key is invalid');
+            res.writeHead(401);
             res.end('401 Unauthorized');
 
             return;
@@ -142,7 +142,7 @@ new http.Server(function(req, res) {
 
           //If query parameters are missing respond with bad request
           if (!user || !pass) {
-            res.writeHead(400, 'Invalid query parameters');
+            res.writeHead(400, 'Invalid request headers');
             res.end('400 Bad request');
 
             return;
@@ -247,7 +247,7 @@ new http.Server(function(req, res) {
 
           //If query parameters are missing respond with bad request
           if (!user || !pass) {
-            res.writeHead(400, 'Invalid query parameters');
+            res.writeHead(400, 'Invalid request headers');
             res.end('400 Bad request');
 
             return;
@@ -280,16 +280,13 @@ new http.Server(function(req, res) {
 
               //If the passwords don't match respond with unauthorized
               if (hash(pass) != rep) {
-                res.writeHead(401, 'The password is incorrect');
+                res.writeHead(401);
                 res.end('401 Unauthorized');
 
                 return;
               } else { //If the passwords do match
-                let unum = Number(new Date); //A unique number from the time of the session start
-                                             //This number makes it harder to duplicate the session id (security)
-                
-                let session = Array.from(Buffer.from(hash(String(user + unum)))).join(''); //Create a session by hashing these two things (to make it hard to guess)
-                let ttl = 60; //The number of seconds the session has before it can't be redeemed
+                let session = hash() //Get the user's session ID
+                let ttl = 3600; //The number of seconds the session has before it can't be redeemed
 
                 //Bind the session to the current user
                 client.setex(session, ttl, user, function(error) {
@@ -312,12 +309,11 @@ new http.Server(function(req, res) {
 
         //If the user is trying to restore their session
         case 'LOAD_SESSION':
-          session = req.headers.session;                                     //The session id requested
-          user = req.headers.username && req.headers.username.toLowerCase(); //The user that is requesting it
+          session = req.headers.session; //The session id requested
 
           //If query parameters are missing respond with bad request
-          if (!session || !user) {
-            res.writeHead(400, 'Invalid query parameters');
+          if (!session) {
+            res.writeHead(400, 'Invalid request headers');
             res.end('400 Bad request');
 
             return;
@@ -344,27 +340,19 @@ new http.Server(function(req, res) {
             }
 
             //Validate that the user has the right session
-            client.get(session, function(error, rep) {
+            client.get(session, function(error, _rep) {
               if (error) {
                 res.writeHead(500, error);
                 res.end('500 Internal server error');
 
                 return;
-              }
-
-              //If the session doesn't belong to the user, deny access
-              if (rep != user) {
-                res.writeHead(401);
-                res.end('401 Unauthorized');
-
-                return;
-              }
+              }     
 
               let cash;
               let influences;
 
               //Store the user's cash value to a variable cash
-              client.hget('cash', user, function(error, rep) {
+              client.hget('cash', _rep, function(error, rep) {
                 if (error) {
                   res.writeHead(500, error);
                   res.end('500 Internal server error');
@@ -375,7 +363,7 @@ new http.Server(function(req, res) {
                 cash = rep;
 
                 //Store the user's influences value to a variable influences
-                client.hget('influences', user, function(error, rep) {
+                client.hget('influences', _rep, function(error, rep) {
                   if (error) {
                     res.writeHead(500, error);
                     res.end('500 Internal server error');
@@ -408,7 +396,7 @@ new http.Server(function(req, res) {
         fs.createReadStream(routes[req_url.path]).pipe(res); //Stream that file back to the client
       } else {                                               //Otherwise
         if (Object.entries(query).length > 0) {              //If the request has queries respon with bad request
-          res.writeHead(400, 'Invalid query parameters');
+          res.writeHead(400, 'Invalid  query parameters');
           res.end('400 Bad request');
 
           return;
