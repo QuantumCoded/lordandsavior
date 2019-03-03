@@ -35,11 +35,11 @@ try {
         session: cookies.session,
         username: cookies.username
       }
-    }, function(res) {
+    }, function(res, req) {
       if (String(res).toLowerCase() == '401 unauthorized') return;
       
-      data.cash = res.getResponseHeader('cash');
-      data.influences = res.getResponseHeader('influences');
+      data.cash = req.getResponseHeader('cash');
+      data.influences = req.getResponseHeader('influences');
       console.log(data);
     }
   );
