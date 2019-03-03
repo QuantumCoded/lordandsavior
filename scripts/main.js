@@ -37,9 +37,10 @@ try {
       }
     }, function(res) {
       if (String(res).toLowerCase() == '401 unauthorized') return;
-
-      data = JSON.parse(res);
-    console.log(data);
+      
+      data.cash = res.getResponseHeader('cash');
+      data.influences = res.getResponseHeader('influences');
+      console.log(data);
     }
   );
 } catch(error) {
