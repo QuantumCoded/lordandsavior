@@ -243,7 +243,7 @@ new http.Server(function(req, res) {
 
           //Storing the username and password to variables for convenience
           user = req.headers.username && req.headers.username.toLowerCase();
-          pass = req.headers.password && res.header.password.toLowerCase();
+          pass = req.headers.password && req.headers.password.toLowerCase();
 
           //If query parameters are missing respond with bad request
           if (!user || !pass) {

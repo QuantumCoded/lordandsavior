@@ -1,4 +1,4 @@
-Version 1.2.47
+Version 1.2.48
 
 Updates since last stable build
 
@@ -60,3 +60,4 @@ Updating logs
 Changing from using queries to headers to added security
 Added support for using headers in AJAX module
 Fixing bug with headers in AJAX module
+Fixing bug with headers in server script
