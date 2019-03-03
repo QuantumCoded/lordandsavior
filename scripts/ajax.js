@@ -5,7 +5,6 @@ const AJAXReq = function(options, callback) {
   let request = new XMLHttpRequest();                        //Create the request
   request.responseType = options.encoding || 'text';         //Set the expected respons type
   request.open(options.method, `/?${options.query || '/'}`); //Open the request using the provided method and query
-  request.send();                                            //Send the request
 
   //Adding the headers to the request
   if (options.headers) {
@@ -13,6 +12,8 @@ const AJAXReq = function(options, callback) {
       request.setRequestHeader(header, options.headers[header]);
     }
   }
+
+  request.send(); //Send the request
   
   //Run the callback with the data recieved
   request.onloadend = function() {

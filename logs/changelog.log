@@ -59,3 +59,4 @@ Fixing bug with impropper error handling
 Updating logs
 Changing from using queries to headers to added security
 Added support for using headers in AJAX module
+Fixing bug with headers in AJAX module
