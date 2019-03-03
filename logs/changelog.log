@@ -1,4 +1,4 @@
-Version 1.2.46
+Version 1.2.47
 
 Updates since last stable build
 
@@ -58,3 +58,4 @@ Fixing bug with making the username lowercase
 Fixing bug with impropper error handling
 Updating logs
 Changing from using queries to headers to added security
+Added support for using headers in AJAX module

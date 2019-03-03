@@ -7,6 +7,13 @@ const AJAXReq = function(options, callback) {
   request.open(options.method, `/?${options.query || '/'}`); //Open the request using the provided method and query
   request.send();                                            //Send the request
 
+  //Adding the headers to the request
+  if (options.headers) {
+    for (let header in options.headers) {
+      request.setRequestHeader(header, options.headers[header]);
+    }
+  }
+  
   //Run the callback with the data recieved
   request.onloadend = function() {
     callback(request.response, request);
