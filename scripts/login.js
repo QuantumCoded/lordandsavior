@@ -22,37 +22,46 @@ window.onload = function() {
   //When the submit button is clicked
   submit.onclick = function() {
     //Send an AJAX request for the user's data
-    new AJAXReq('GET', `type=MAKE_SESSION&username=${escape(user.value).toLowerCase()}&password=${escape(pass.value)}`, function(data, request) {
-      if (!data) {
-        invalid();
-        return;
-      } else {
-        switch(String(data).toLowerCase()) {
-          case '401 unauthorized': 
-            invalid();
-            return;
-          break;
+    new AJAXReq(
+      {
+        method: 'GET',
+        query: 'type=MAKE_SESSION',
+        headers: {
+          username: escape(user.value).toLowerCase(),
+          password: pass.value
+        }
+      }, function(data, request) {
+        if (!data) {
+          invalid();
+          return;
+        } else {
+          switch(String(data).toLowerCase()) {
+            case '401 unauthorized': 
+              invalid();
+              return;
+            break;
 
-          case '400 bad request':
-            invalid();
-            return;
-          break;
+            case '400 bad request':
+              invalid();
+              return;
+            break;
 
-          case '201 created':
-            setCookie('session', escape(request.getResponseHeader('session')));
-            setCookie('username', escape(user.value.toLowerCase()));
+            case '201 created':
+              setCookie('session', escape(request.getResponseHeader('session')));
+              setCookie('username', escape(user.value.toLowerCase()));
 
-            setTimeout(function() {
-              location.href = '/main';
-            }, 2);
-          break;
+              setTimeout(function() {
+                location.href = '/main';
+              }, 500);
+            break;
 
-          default:
-            console.warn('Unexpected response', data);
-          break;
+            default:
+              console.warn('Unexpected response', data);
+            break;
+          }
         }
       }
-    });
+    );
   };
 };
 

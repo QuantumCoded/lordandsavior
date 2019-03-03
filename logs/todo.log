@@ -10,12 +10,7 @@ Fix the item templates in the shop gui
 Create method for purchasing items as well as selling them
 Create items to populate the shop
 Await user feedback on what to do next
-Rework the query system and look into heroku's HTTPS - TOP PRIORITYImplement account creation into the sign up page 
-Create method to write a user's state to the database
-Create method to initiate a user's state from the database - HALTED
-Implement error checking for the sign up and log in system - DONE
-Fix the item templates in the shop gui
-Create method for purchasing items as well as selling them
-Create items to populate the shop
-Await user feedback on what to do next
-Rework the query system and look into heroku's HTTPS - TOP PRIORITY
+Rework the query system and look into heroku's HTTPS - TESTING
+Add salt to better secure data storage and session ids - UP NEXT
+Add error handling to AJAX onload event
+Escape the user's username if displayed on the front end - FUTURE PLAN

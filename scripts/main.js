@@ -15,24 +15,33 @@ var data;         //The main data object
 
 try {
   let _cookies = document.cookie.replace(/ /g, '').split(';'); //Split up the cookies and format them
-  _cookies.forEach(function(cookie) {      //Store each of the cookies in the main cookie obect
-    let pair = cookie.split('='); //Split the cookie into a pair
+  _cookies.forEach(function(cookie) { //Store each of the cookies in the main cookie obect
+    let pair = cookie.split('=');     //Split the cookie into a pair
     if (pair.length != 2) return;
 
     if (acceptedCookies.indexOf(pair[0]) == -1) return;
-    cookies[pair[0]] = pair[1];   //Store that pair in the cookie object
+    cookies[pair[0]] = pair[1]; //Store that pair in the cookie object
   });
 
   //If the session could not be found reload the session
   if (!cookies.session || !cookies.username) throw 'Bad cookie params'
 
   //Query the database for the user's session
-  new AJAXReq('GET', `type=LOAD_SESSION&session=${cookies.session}&username=${escape(cookies.username)}`, function(res) {
-    if (String(res).toLowerCase() == '401 unauthorized') return;
+  new AJAXReq(
+    {
+      method: 'GET',
+      query: 'type=LOAD_SESSION',
+      headers: {
+        session: cookies.session,
+        username: cookies.username
+      }
+    }, function(res) {
+      if (String(res).toLowerCase() == '401 unauthorized') return;
 
-    data = JSON.parse(res);
+      data = JSON.parse(res);
     console.log(data);
-  });
+    }
+  );
 } catch(error) {
   console.error(error);
   alert('There was an error loading session data');

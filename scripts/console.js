@@ -15,9 +15,19 @@ window.onload = function() {
       }).join('');
 
       //Make an AJAX request to issue the command
-      new AJAXReq('POST', `auth=${auth}&type=COMMAND&data=${data}`, function(data) {
-        alert(data);
-      });
-    } 
+      new AJAXReq(
+        {
+          method: 'POST',
+          query: 'type=COMMAND',
+          headers: {
+            auth: auth,
+            data: data
+          }
+        },
+        function(data) {
+          alert(data);
+        }
+      );
+    }
   }
 };

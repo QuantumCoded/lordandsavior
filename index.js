@@ -95,14 +95,14 @@ new http.Server(function(req, res) {
         //Handle console issued commands
         case 'COMMAND':
           //If query parameters are missing respond with bad request
-          if (!query.auth || !query.data) {
+          if (!req.headers.auth || !req.headers.data) {
             res.writeHead(400, 'Invalid query parameters');
             res.end('400 Bad request');
 
             return;
           }
 
-          if (hash(query.auth) != process.env.AUTH_KEY) {
+          if (hash(req.headers.auth) != hash(process.env.AUTH_KEY)) {
             res.writeHead(401, 'The auth key is invalid');
             res.end('401 Unauthorized');
 
@@ -110,22 +110,22 @@ new http.Server(function(req, res) {
           }
 
           //Handle running the command
-          if (query.data.startsWith('~')) { //If the command starts with "~" it is going to respond to the request
+          if (req.headers.data.startsWith('~')) { //If the command starts with "~" it is going to respond to the request
             try {
-            eval(query.data.substring(1)); //Run everything past the "~" and let it respond
-            setTimeout(function() { //Wait 3 seconds before timing out (if the code hasn't responded yet)
-              if (!res.headersSent) {
-                res.writeHead(408, 'Code did not respond to request');
-                res.end('408 Request timed out');
-              }
-            }, 3000);
+              eval(req.headers.data.substring(1)); //Run everything past the "~" and let it respond
+              setTimeout(function() { //Wait 3 seconds before timing out (if the code hasn't responded yet)
+                if (!res.headersSent) {
+                  res.writeHead(408, 'Code did not respond to request');
+                  res.end('408 Request timed out');
+                }
+              }, 3000);
             } catch (error) {
               res.end(`ERROR: ${String(error)}`);
               return;
             }
           } else {
             try {
-              res.end(String(eval(query.data)));  //Run the command and respond with the result
+              res.end(String(eval(req.headers.data)));  //Run the command and respond with the result
               return;
             } catch(error) {
               res.end(`ERROR: ${String(error)}`); //If there was an error respond with the error
@@ -137,8 +137,8 @@ new http.Server(function(req, res) {
         //Handle the creation of a new user in the database
         case 'INIT_USER':
           //Convert both the username and password to lowercase (prevent duplicate account names)
-          user = query.username && query.username.toLowerCase();
-          pass = query.password && query.password.toLowerCase();
+          user = req.headers.username && req.headers.username.toLowerCase();
+          pass = req.headers.password && req.headers.password.toLowerCase();
 
           //If query parameters are missing respond with bad request
           if (!user || !pass) {
@@ -242,8 +242,8 @@ new http.Server(function(req, res) {
         case 'MAKE_SESSION':
 
           //Storing the username and password to variables for convenience
-          user = query.username && query.username.toLowerCase();
-          pass = query.password && query.password.toLowerCase();
+          user = req.headers.username && req.headers.username.toLowerCase();
+          pass = req.headers.password && res.header.password.toLowerCase();
 
           //If query parameters are missing respond with bad request
           if (!user || !pass) {
@@ -290,6 +290,7 @@ new http.Server(function(req, res) {
                 
                 let session = Array.from(Buffer.from(hash(String(user + unum)))).join(''); //Create a session by hashing these two things (to make it hard to guess)
                 let ttl = 60; //The number of seconds the session has before it can't be redeemed
+
                 //Bind the session to the current user
                 client.setex(session, ttl, user, function(error) {
                   if (error) {
@@ -311,8 +312,8 @@ new http.Server(function(req, res) {
 
         //If the user is trying to restore their session
         case 'LOAD_SESSION':
-          session = query.session; //The session id requested
-          user = query.username && query.username.toLowerCase(); //The user that is requesting it
+          session = req.headers.session;                                     //The session id requested
+          user = req.headers.username && req.headers.username.toLowerCase(); //The user that is requesting it
 
           //If query parameters are missing respond with bad request
           if (!session || !user) {
@@ -336,7 +337,7 @@ new http.Server(function(req, res) {
 
             //If the session has expired or hasn't been created, deny access
             if (!rep) {
-              res.writeHead(401, 'Session has timed out or is not authorized (to)');
+              res.writeHead(401);
               res.end('401 Unauthorized');
 
               return;
@@ -353,7 +354,7 @@ new http.Server(function(req, res) {
 
               //If the session doesn't belong to the user, deny access
               if (rep != user) {
-                res.writeHead(401, 'Session has timed out or is not authorized (ua)');
+                res.writeHead(401);
                 res.end('401 Unauthorized');
 
                 return;
@@ -384,8 +385,9 @@ new http.Server(function(req, res) {
 
                   influences = rep;
 
-                  //Respond with an object containing the user's data
-                  res.end(JSON.stringify({cash: cash, influences: influences}));
+                  //Respond with the user's data
+                  res.writeHead(200, {cash: cash, influences: influences});
+                  res.end();
                   return;
                 });
               });
