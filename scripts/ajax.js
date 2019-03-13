@@ -14,7 +14,7 @@ const AJAXReq = function(options, callback) {
   }
 
   request.send(); //Send the request
-  
+
   //Run the callback with the data recieved
   request.onloadend = function() {
     callback(request.response, request);

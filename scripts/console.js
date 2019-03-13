@@ -7,13 +7,6 @@ window.onload = function() {
     if (e.code == 'Enter') {                 //If the key was Enter
       let data = String(prompt('Command:')); //Prompt the user for a command
 
-      //Replace any reserved characters with their escape codes
-      data = data.split('').map(c => {
-        return c
-          .replace('+', '%2B');
-
-      }).join('');
-
       //Make an AJAX request to issue the command
       new AJAXReq(
         {

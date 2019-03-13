@@ -9,7 +9,7 @@ const port   = process.env.PORT || 80;                    //The port the HTTP se
 const client = redis.createClient(process.env.REDIS_URL); //The redis API client
 
 //Shutdown if the redis client can't connect (should automatically resolve)
-client.on('error', function() {
+client.on('error', function(){
   if (port != 80) process.exit(); //Only shutdown if not running localy
 });
 
@@ -286,7 +286,7 @@ new http.Server(function(req, res) {
                 return;
               } else { //If the passwords do match
                 let session = hash(user + process.env.SALT); //Get the user's session ID
-                let ttl = 3600; //The number of seconds the session has before it can't be redeemed
+                let ttl = 3600000; //The number of seconds the session has before it can't be redeemed
 
                 //Bind the session to the current user
                 client.setex(session, ttl, user, function(error) {
